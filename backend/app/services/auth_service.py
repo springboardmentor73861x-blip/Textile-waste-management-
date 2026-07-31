@@ -1,0 +1,66 @@
+from sqlalchemy.orm import Session
+
+from app.models.user import User
+from app.repositories.user_repository import UserRepository
+from app.schemas.user_schema import UserRegister, UserLogin
+from app.core.security import (
+    hash_password,
+    verify_password,
+    create_access_token,
+)
+
+
+class AuthService:
+
+    @staticmethod
+    def register_user(db: Session, user_data: UserRegister):
+
+        existing_user = UserRepository.get_by_email(
+            db,
+            user_data.email,
+        )
+
+        if existing_user:
+            raise ValueError("Email already registered.")
+
+        new_user = User(
+            full_name=user_data.full_name,
+            email=user_data.email,
+            password=hash_password(user_data.password),
+            role="user",
+        )
+
+        return UserRepository.create_user(
+            db,
+            new_user,
+        )
+
+    @staticmethod
+    def login_user(db: Session, user_data: UserLogin):
+
+        user = UserRepository.get_by_email(
+            db,
+            user_data.email,
+        )
+
+        if not user:
+            return None
+
+        if not verify_password(
+            user_data.password,
+            user.password,
+        ):
+            return None
+
+        token = create_access_token(
+            {
+                "sub": user.email,
+                "role": user.role,
+            }
+        )
+
+        return {
+            "access_token": token,
+            "token_type": "bearer",
+            "user": user,
+        }
