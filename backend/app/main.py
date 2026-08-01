@@ -1,10 +1,13 @@
 from fastapi import FastAPI
+from fastapi.staticfiles import StaticFiles
+
 
 from app.api.auth import router as auth_router
 from app.core.config import settings
 from app.db.database import Base, engine
 from app.api.users import router as user_router
 from app.api.inventory import router as inventory_router
+from app.api.upload import router as upload_router
 
 
 
@@ -20,11 +23,17 @@ app = FastAPI(
     title=settings.APP_NAME,
     version=settings.APP_VERSION,
 )
+app.mount(
+    "/storage",
+    StaticFiles(directory="storage"),
+    name="storage",
+)
 
 # Register API routes
 app.include_router(auth_router)
 app.include_router(user_router)
 app.include_router(inventory_router)
+app.include_router(upload_router)
 
 
 @app.get("/")

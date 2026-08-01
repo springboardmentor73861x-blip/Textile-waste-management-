@@ -13,5 +13,5 @@ class UploadService:
         return {
             "message": "Image uploaded successfully.",
             "filename": image["filename"],
-            "filepath": image["filepath"],
+            "image_url": f"/storage/uploads/{image['filename']}",
         }
