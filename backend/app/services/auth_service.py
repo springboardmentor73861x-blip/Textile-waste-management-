@@ -2,7 +2,7 @@ from sqlalchemy.orm import Session
 
 from app.models.user import User
 from app.repositories.user_repository import UserRepository
-from app.schemas.user_schema import UserRegister, UserLogin
+from app.schemas.user_schema import UserRegister
 from app.core.security import (
     hash_password,
     verify_password,
@@ -36,18 +36,22 @@ class AuthService:
         )
 
     @staticmethod
-    def login_user(db: Session, user_data: UserLogin):
+    def login_user(
+        db: Session,
+        email: str,
+        password: str,
+    ):
 
         user = UserRepository.get_by_email(
             db,
-            user_data.email,
+            email,
         )
 
-        if not user:
+        if user is None:
             return None
 
         if not verify_password(
-            user_data.password,
+            password,
             user.password,
         ):
             return None
@@ -62,5 +66,11 @@ class AuthService:
         return {
             "access_token": token,
             "token_type": "bearer",
-            "user": user,
+            "user": {
+                "id": user.id,
+                "full_name": user.full_name,
+                "email": user.email,
+                "role": user.role,
+                "is_active": user.is_active,
+            },
         }
