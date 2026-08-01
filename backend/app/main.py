@@ -4,6 +4,9 @@ from app.api.auth import router as auth_router
 from app.core.config import settings
 from app.db.database import Base, engine
 from app.api.users import router as user_router
+from app.api.inventory import router as inventory_router
+
+
 
 # Import models so SQLAlchemy creates tables
 from app.models.user import User
@@ -21,6 +24,7 @@ app = FastAPI(
 # Register API routes
 app.include_router(auth_router)
 app.include_router(user_router)
+app.include_router(inventory_router)
 
 
 @app.get("/")
