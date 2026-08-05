@@ -1,0 +1,123 @@
+/* ==========================================
+   Dashboard Charts
+========================================== */
+
+.dashboard-charts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 25px;
+    margin-top: 30px;
+    width: 100%;
+}
+
+.chart-card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 25px;
+    box-shadow: 0 10px 30px rgba(0,0,0,.08);
+    transition: .3s ease;
+    min-height: 420px;
+}
+
+.chart-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,.12);
+}
+
+.chart-card h2 {
+    text-align: center;
+    color: #1976d2;
+    font-size: 22px;
+    margin-bottom: 20px;
+    font-weight: 700;
+}
+
+/* ==========================================
+   Recharts
+========================================== */
+
+.recharts-wrapper {
+    font-size: 14px;
+}
+
+.recharts-cartesian-grid line {
+    stroke: #e5e7eb;
+}
+
+.recharts-default-tooltip {
+    background: #fff !important;
+    border: none !important;
+    border-radius: 10px !important;
+    box-shadow: 0 8px 25px rgba(0,0,0,.15);
+}
+
+.recharts-legend-item-text {
+    color: #444 !important;
+    font-weight: 600;
+}
+
+.recharts-text {
+    fill: #666;
+}
+
+/* ==========================================
+   Dark Theme
+========================================== */
+
+body.dark-theme .chart-card {
+    background: #2b2b2b;
+}
+
+body.dark-theme .chart-card h2 {
+    color: #64b5f6;
+}
+
+body.dark-theme .recharts-text {
+    fill: #ddd;
+}
+
+body.dark-theme .recharts-cartesian-grid line {
+    stroke: #444;
+}
+
+body.dark-theme .recharts-default-tooltip {
+    background: #1f1f1f !important;
+    color: white !important;
+}
+
+body.dark-theme .recharts-legend-item-text {
+    color: #fff !important;
+}
+
+/* ==========================================
+   Responsive
+========================================== */
+
+@media (max-width:992px){
+
+    .dashboard-charts{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media (max-width:768px){
+
+    .chart-card{
+        padding:20px;
+    }
+
+}
+
+@media (max-width:500px){
+
+    .chart-card{
+        min-height:350px;
+        padding:15px;
+    }
+
+    .chart-card h2{
+        font-size:18px;
+    }
+
+}

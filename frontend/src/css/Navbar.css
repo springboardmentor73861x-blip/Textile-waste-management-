@@ -1,0 +1,245 @@
+.navbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+
+    background:#fff;
+
+    padding:18px 30px;
+
+    border-radius:15px;
+
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+
+    margin-bottom:30px;
+}
+
+.welcome h2{
+    color:#1565C0;
+    font-size:26px;
+}
+
+.welcome p{
+    color:#666;
+    margin-top:5px;
+}
+
+.nav-right{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:20px;
+
+}
+
+.icon-box{
+
+    width:45px;
+
+    height:45px;
+
+    border-radius:50%;
+
+    background:#E3F2FD;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    cursor:pointer;
+
+    position:relative;
+
+    transition:.3s;
+
+    font-size:20px;
+
+    color:#1565C0;
+
+}
+
+.icon-box:hover{
+
+    background:#BBDEFB;
+
+}
+
+.badge{
+
+    position:absolute;
+
+    top:3px;
+
+    right:2px;
+
+    background:red;
+
+    color:white;
+
+    width:18px;
+
+    height:18px;
+
+    border-radius:50%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-size:11px;
+
+}
+
+.profile{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    cursor:pointer;
+
+    position:relative;
+
+}
+
+.profile-icon{
+
+    font-size:42px;
+
+    color:#1565C0;
+
+}
+
+.profile span{
+
+    font-weight:600;
+
+}
+
+.profile-menu{
+
+    position:absolute;
+
+    right:0;
+
+    top:65px;
+
+    width:260px;
+
+    background:white;
+
+    border-radius:15px;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+
+    padding:20px;
+
+    z-index:100;
+
+}
+
+.profile-header{
+
+    text-align:center;
+
+}
+
+.big-icon{
+
+    font-size:70px;
+
+    color:#1565C0;
+
+    margin-bottom:10px;
+
+}
+
+.profile-header h3{
+
+    color:#1565C0;
+
+}
+
+.profile-header p{
+
+    color:#666;
+
+    margin:6px 0;
+
+}
+
+.menu-item{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    padding:12px;
+
+    margin-top:8px;
+
+    border-radius:8px;
+
+    cursor:pointer;
+
+    transition:.3s;
+
+}
+
+.menu-item:hover{
+
+    background:#E3F2FD;
+
+}
+
+.logout{
+
+    color:red;
+
+}
+
+.dark-theme{
+
+    background:#121212;
+
+    color:white;
+
+}
+
+.dark-theme .navbar{
+
+    background:#1F1F1F;
+
+}
+
+.dark-theme .profile-menu{
+
+    background:#2C2C2C;
+
+    color:white;
+
+}
+
+.dark-theme .card{
+
+    background:#2C2C2C;
+
+    color:white;
+
+}
+
+.dark-theme .sidebar{
+
+    background:#0D47A1;
+
+}

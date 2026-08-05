@@ -1,0 +1,222 @@
+.dashboard{
+    display:flex;
+    min-height:100vh;
+    background:#eef6ff;
+}
+
+/* Dashboard */
+
+.dashboard-content{
+    flex:1;
+    margin-left:230px;
+    padding:20px;
+    transition:.3s;
+}
+
+.dashboard-content.collapsed{
+    margin-left:80px;
+}
+
+/* Reports */
+
+.reports-container{
+
+    margin-top:25px;
+
+    background:#fff;
+
+    border-radius:20px;
+
+    padding:30px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+}
+
+.reports-container h1{
+
+    color:#1976d2;
+
+    margin-bottom:8px;
+
+}
+
+.reports-container p{
+
+    color:#666;
+
+    margin-bottom:30px;
+
+}
+
+/* Cards */
+
+.report-cards{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:20px;
+
+    margin-bottom:30px;
+
+}
+
+.report-card{
+
+    background:#f8fbff;
+
+    border-radius:15px;
+
+    padding:25px;
+
+    text-align:center;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+    transition:.3s;
+
+}
+
+.report-card:hover{
+
+    transform:translateY(-6px);
+
+}
+
+.report-icon{
+
+    font-size:45px;
+
+    margin-bottom:15px;
+
+}
+
+.blue{
+    color:#1976d2;
+}
+
+.green{
+    color:#43a047;
+}
+
+.orange{
+    color:#fb8c00;
+}
+
+.report-card h3{
+
+    color:#555;
+
+    margin-bottom:10px;
+
+}
+
+.report-card h2{
+
+    color:#1976d2;
+
+    font-size:32px;
+
+}
+
+/* Button */
+
+.download-btn{
+
+    background:#1976d2;
+
+    color:white;
+
+    border:none;
+
+    padding:15px 25px;
+
+    border-radius:10px;
+
+    cursor:pointer;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:10px;
+
+    font-size:16px;
+
+    transition:.3s;
+
+}
+
+.download-btn:hover{
+
+    background:#125aa3;
+
+}
+
+/* Dark Theme */
+
+body.dark-theme .reports-container{
+
+    background:#2b2b2b;
+
+}
+
+body.dark-theme .report-card{
+
+    background:#363636;
+
+}
+
+body.dark-theme .reports-container h1{
+
+    color:white;
+
+}
+
+body.dark-theme .reports-container p{
+
+    color:#ccc;
+
+}
+
+body.dark-theme .report-card h3{
+
+    color:#ddd;
+
+}
+
+body.dark-theme .report-card h2{
+
+    color:white;
+
+}
+
+/* Responsive */
+
+@media(max-width:768px){
+
+.dashboard-content{
+
+    margin-left:80px;
+
+    padding:15px;
+
+}
+
+.report-cards{
+
+    grid-template-columns:1fr;
+
+}
+
+.download-btn{
+
+    width:100%;
+
+    justify-content:center;
+
+}
+
+}

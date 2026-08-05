@@ -1,0 +1,235 @@
+.dashboard{
+    display:flex;
+    min-height:100vh;
+    background:#eef6ff;
+}
+
+/* Dashboard */
+
+.dashboard-content{
+    flex:1;
+    margin-left:230px;
+    padding:20px;
+    transition:.3s;
+}
+
+.dashboard-content.collapsed{
+    margin-left:80px;
+}
+
+/* Container */
+
+.processing-container{
+
+    margin-top:25px;
+
+    background:#fff;
+
+    border-radius:20px;
+
+    padding:30px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+}
+
+.processing-container h1{
+
+    color:#1976d2;
+
+    margin-bottom:8px;
+
+}
+
+.processing-container p{
+
+    color:#666;
+
+    margin-bottom:25px;
+
+}
+
+/* Toolbar */
+
+.toolbar{
+
+    display:flex;
+
+    justify-content:space-between;
+
+    gap:20px;
+
+    margin-bottom:25px;
+
+}
+
+.search-box,
+.status-filter{
+
+    padding:12px;
+
+    border:1px solid #ccc;
+
+    border-radius:10px;
+
+    outline:none;
+
+    font-size:15px;
+
+}
+
+.search-box{
+
+    flex:1;
+
+}
+
+.status-filter{
+
+    width:180px;
+
+}
+
+/* Table */
+
+.table-container{
+
+    overflow-x:auto;
+
+}
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+thead{
+
+    background:#1976d2;
+
+    color:white;
+
+}
+
+th,
+td{
+
+    padding:15px;
+
+    text-align:center;
+
+    border-bottom:1px solid #eee;
+
+}
+
+tbody tr:hover{
+
+    background:#f5f9ff;
+
+}
+
+/* Status */
+
+.processing{
+
+    background:#d1ecf1;
+
+    color:#0c5460;
+
+    padding:6px 14px;
+
+    border-radius:20px;
+
+    font-weight:600;
+
+}
+
+/* Progress */
+
+progress{
+
+    width:120px;
+
+    height:18px;
+
+    margin-right:10px;
+
+}
+
+/* Dark Theme */
+
+body.dark-theme .processing-container{
+
+    background:#2b2b2b;
+
+}
+
+body.dark-theme .processing-container h1{
+
+    color:white;
+
+}
+
+body.dark-theme .processing-container p{
+
+    color:#ccc;
+
+}
+
+body.dark-theme table{
+
+    color:white;
+
+}
+
+body.dark-theme tbody tr:hover{
+
+    background:#333;
+
+}
+
+body.dark-theme .search-box,
+body.dark-theme .status-filter{
+
+    background:#1f1f1f;
+
+    color:white;
+
+    border:1px solid #555;
+
+}
+
+/* Responsive */
+
+@media(max-width:768px){
+
+.dashboard-content{
+
+    margin-left:80px;
+
+    padding:15px;
+
+}
+
+.toolbar{
+
+    flex-direction:column;
+
+}
+
+.status-filter{
+
+    width:100%;
+
+}
+
+progress{
+
+    width:80px;
+
+}
+
+}

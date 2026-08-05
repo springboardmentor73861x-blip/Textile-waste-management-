@@ -1,0 +1,253 @@
+.dashboard{
+    display:flex;
+    min-height:100vh;
+    background:#eef6ff;
+}
+
+/* Dashboard */
+
+.dashboard-content{
+    flex:1;
+    margin-left:230px;
+    padding:20px;
+    transition:.3s;
+}
+
+.dashboard-content.collapsed{
+    margin-left:80px;
+}
+
+/* Recovery Container */
+
+.recovery-container{
+
+    margin-top:25px;
+
+    background:white;
+
+    border-radius:20px;
+
+    padding:30px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.08);
+
+}
+
+.recovery-container h1{
+
+    color:#1976d2;
+
+    margin-bottom:8px;
+
+}
+
+.recovery-container p{
+
+    color:#666;
+
+    margin-bottom:30px;
+
+}
+
+/* Cards */
+
+.recovery-cards{
+
+    display:grid;
+
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+
+    gap:20px;
+
+    margin-bottom:30px;
+
+}
+
+.recovery-card{
+
+    background:#f8fbff;
+
+    border-radius:15px;
+
+    padding:25px;
+
+    text-align:center;
+
+    box-shadow:0 5px 15px rgba(0,0,0,.08);
+
+    transition:.3s;
+
+}
+
+.recovery-card:hover{
+
+    transform:translateY(-6px);
+
+}
+
+.icon{
+
+    font-size:42px;
+
+    margin-bottom:15px;
+
+}
+
+.blue{
+    color:#1976d2;
+}
+
+.green{
+    color:#43a047;
+}
+
+.orange{
+    color:#fb8c00;
+}
+
+.purple{
+    color:#8e24aa;
+}
+
+.recovery-card h3{
+
+    color:#555;
+
+    margin-bottom:10px;
+
+}
+
+.recovery-card h2{
+
+    color:#1976d2;
+
+    font-size:30px;
+
+}
+
+/* Table */
+
+.table-container{
+
+    overflow-x:auto;
+
+}
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+thead{
+
+    background:#1976d2;
+
+    color:white;
+
+}
+
+th,
+td{
+
+    padding:15px;
+
+    text-align:center;
+
+    border-bottom:1px solid #eee;
+
+}
+
+tbody tr:hover{
+
+    background:#f5f9ff;
+
+}
+
+/* Status */
+
+.completed{
+
+    background:#d4edda;
+
+    color:#155724;
+
+    padding:6px 14px;
+
+    border-radius:20px;
+
+    font-weight:600;
+
+}
+
+/* Dark Theme */
+
+body.dark-theme .recovery-container{
+
+    background:#2b2b2b;
+
+}
+
+body.dark-theme .recovery-card{
+
+    background:#363636;
+
+}
+
+body.dark-theme .recovery-container h1{
+
+    color:white;
+
+}
+
+body.dark-theme .recovery-container p{
+
+    color:#ccc;
+
+}
+
+body.dark-theme .recovery-card h3{
+
+    color:#ddd;
+
+}
+
+body.dark-theme .recovery-card h2{
+
+    color:white;
+
+}
+
+body.dark-theme table{
+
+    color:white;
+
+}
+
+body.dark-theme tbody tr:hover{
+
+    background:#333;
+
+}
+
+/* Responsive */
+
+@media(max-width:768px){
+
+.dashboard-content{
+
+    margin-left:80px;
+
+    padding:15px;
+
+}
+
+.recovery-cards{
+
+    grid-template-columns:1fr;
+
+}
+
+}
