@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import UserModal from "../components/UserModal";
 import AddUserModal from "../components/AddUserModal";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import API from "../services/api";
 
 import {
@@ -11,43 +11,187 @@ import {
   FaPlus,
   FaEye,
   FaTrash,
+  FaSyncAlt,
 } from "react-icons/fa";
 
 import "../css/UserManagement.css";
 
+
 function UserManagement() {
 
+  // ==========================================================
+  // SIDEBAR
+  // ==========================================================
+
   const [collapsed, setCollapsed] = useState(false);
+
+
+  // ==========================================================
+  // USERS
+  // ==========================================================
 
   const [users, setUsers] = useState([]);
 
   const [loading, setLoading] = useState(true);
 
+  const [error, setError] = useState("");
+
+  const [deletingId, setDeletingId] = useState(null);
+
+  const [viewingUserId, setViewingUserId] = useState(null);
+
+
+  // ==========================================================
+  // SEARCH / FILTER
+  // ==========================================================
+
   const [search, setSearch] = useState("");
 
   const [roleFilter, setRoleFilter] = useState("All");
+
+
+  // ==========================================================
+  // MODALS
+  // ==========================================================
 
   const [selectedUser, setSelectedUser] = useState(null);
 
   const [showAddModal, setShowAddModal] = useState(false);
 
-  useEffect(() => {
-    fetchUsers();
-  }, []);
 
-  const fetchUsers = async () => {
+  // ==========================================================
+  // FETCH ALL USERS
+  //
+  // GET /api/admin/users
+  // ==========================================================
+
+  const fetchUsers = useCallback(async () => {
 
     try {
 
       setLoading(true);
 
-      const response = await API.get("/admin/users");
+      setError("");
 
-      setUsers(response.data);
+      console.log(
+        "======================================"
+      );
+
+      console.log(
+        "FETCHING USERS"
+      );
+
+      console.log(
+        "GET /api/admin/users"
+      );
+
+      console.log(
+        "======================================"
+      );
+
+
+      const response = await API.get(
+        "/admin/users"
+      );
+
+
+      console.log(
+        "Users API Response:",
+        response.data
+      );
+
+
+      // ======================================================
+      // YOUR BACKEND CURRENTLY RETURNS:
+      //
+      // [
+      //   {
+      //     id,
+      //     full_name,
+      //     email,
+      //     role
+      //   }
+      // ]
+      // ======================================================
+
+      let userData = [];
+
+      if (Array.isArray(response.data)) {
+
+        userData = response.data;
+
+      } else if (
+        Array.isArray(
+          response.data?.users
+        )
+      ) {
+
+        userData =
+          response.data.users;
+
+      } else if (
+        Array.isArray(
+          response.data?.data
+        )
+      ) {
+
+        userData =
+          response.data.data;
+
+      } else {
+
+        console.error(
+          "Unexpected users response:",
+          response.data
+        );
+
+        throw new Error(
+          "Invalid response received from server."
+        );
+
+      }
+
+
+      setUsers(userData);
 
     } catch (error) {
 
-      console.error(error);
+      console.error(
+        "======================================"
+      );
+
+      console.error(
+        "FETCH USERS ERROR"
+      );
+
+      console.error(
+        error
+      );
+
+      console.error(
+        "Status:",
+        error?.response?.status
+      );
+
+      console.error(
+        "Response:",
+        error?.response?.data
+      );
+
+      console.error(
+        "======================================"
+      );
+
+
+      setUsers([]);
+
+
+      setError(
+        error?.response?.data?.detail ||
+        error?.response?.data?.message ||
+        error?.message ||
+        "Unable to load users. Please check the backend."
+      );
 
     } finally {
 
@@ -55,258 +199,990 @@ function UserManagement() {
 
     }
 
-  };
+  }, []);
 
-  const deleteUser = async (id) => {
 
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this user?"
-    );
+  // ==========================================================
+  // INITIAL LOAD
+  // ==========================================================
 
-    if (!confirmDelete) return;
+  useEffect(() => {
+
+    fetchUsers();
+
+  }, [fetchUsers]);
+
+
+  // ==========================================================
+  // VIEW SINGLE USER
+  //
+  // GET /api/admin/users/{user_id}
+  // ==========================================================
+
+  const viewUser = async (id) => {
 
     try {
 
-      await API.delete(`/admin/users/${id}`);
+      setViewingUserId(id);
 
-      alert("User deleted successfully.");
+      setError("");
 
-      fetchUsers();
+      console.log(
+        "======================================"
+      );
+
+      console.log(
+        "FETCHING USER DETAILS"
+      );
+
+      console.log(
+        `GET /api/admin/users/${id}`
+      );
+
+      console.log(
+        "======================================"
+      );
+
+
+      const response = await API.get(
+        `/admin/users/${id}`
+      );
+
+
+      console.log(
+        "User Details Response:",
+        response.data
+      );
+
+
+      // ======================================================
+      // BACKEND CURRENTLY RETURNS:
+      //
+      // {
+      //   id,
+      //   full_name,
+      //   email,
+      //   role
+      // }
+      // ======================================================
+
+      const user =
+        response?.data?.user ??
+        response?.data?.data ??
+        response?.data;
+
+
+      if (
+        !user ||
+        !user.id
+      ) {
+
+        throw new Error(
+          "Invalid user details received from server."
+        );
+
+      }
+
+
+      setSelectedUser(
+        user
+      );
+
 
     } catch (error) {
 
-      console.error(error);
+      console.error(
+        "======================================"
+      );
 
-      alert("Failed to delete user.");
+      console.error(
+        "VIEW USER ERROR"
+      );
+
+      console.error(
+        error
+      );
+
+      console.error(
+        "Status:",
+        error?.response?.status
+      );
+
+      console.error(
+        "Response:",
+        error?.response?.data
+      );
+
+      console.error(
+        "======================================"
+      );
+
+
+      setError(
+        error?.response?.data?.detail ||
+        error?.response?.data?.message ||
+        error?.message ||
+        "Failed to load user details."
+      );
+
+
+    } finally {
+
+      setViewingUserId(
+        null
+      );
 
     }
 
   };
 
-  const filteredUsers = users.filter((user) => {
 
-    const matchesSearch =
-      user.full_name
-        .toLowerCase()
-        .includes(search.toLowerCase()) ||
+  // ==========================================================
+  // DELETE USER
+  //
+  // DELETE /api/admin/users/{user_id}
+  // ==========================================================
 
-      user.email
-        .toLowerCase()
-        .includes(search.toLowerCase());
+  const deleteUser = async (id) => {
 
-    const matchesRole =
-      roleFilter === "All" ||
-      user.role === roleFilter;
+    const confirmDelete =
+      window.confirm(
+        "Are you sure you want to delete this user?"
+      );
 
-    return matchesSearch && matchesRole;
 
-  });
+    if (!confirmDelete) {
+
+      return;
+
+    }
+
+
+    try {
+
+      setDeletingId(id);
+
+      setError("");
+
+
+      console.log(
+        "======================================"
+      );
+
+      console.log(
+        "DELETING USER"
+      );
+
+      console.log(
+        `DELETE /api/admin/users/${id}`
+      );
+
+      console.log(
+        "======================================"
+      );
+
+
+      const response =
+        await API.delete(
+          `/admin/users/${id}`
+        );
+
+
+      console.log(
+        "Delete User Response:",
+        response.data
+      );
+
+
+      alert(
+        response?.data?.message ||
+        "User deleted successfully."
+      );
+
+
+      // ======================================================
+      // REMOVE IMMEDIATELY FROM UI
+      // ======================================================
+
+      setUsers(
+        (currentUsers) =>
+          currentUsers.filter(
+            (user) =>
+              user.id !== id
+          )
+      );
+
+
+      // ======================================================
+      // OPTIONAL REFRESH
+      // ======================================================
+
+      await fetchUsers();
+
+
+    } catch (error) {
+
+      console.error(
+        "======================================"
+      );
+
+      console.error(
+        "DELETE USER ERROR"
+      );
+
+      console.error(
+        error
+      );
+
+      console.error(
+        "Status:",
+        error?.response?.status
+      );
+
+      console.error(
+        "Response:",
+        error?.response?.data
+      );
+
+      console.error(
+        "======================================"
+      );
+
+
+      const message =
+        error?.response?.data?.detail ||
+        error?.response?.data?.message ||
+        "Failed to delete user.";
+
+
+      setError(
+        message
+      );
+
+
+      alert(
+        message
+      );
+
+
+    } finally {
+
+      setDeletingId(
+        null
+      );
+
+    }
+
+  };
+
+
+  // ==========================================================
+  // ADD USER SUCCESS
+  //
+  // AddUserModal can call refreshUsers()
+  // after successful POST.
+  // ==========================================================
+
+  const handleAddUserSuccess = async () => {
+
+    setShowAddModal(false);
+
+    await fetchUsers();
+
+  };
+
+
+  // ==========================================================
+  // FILTER USERS
+  // ==========================================================
+
+  const normalizedSearch =
+    search
+      .trim()
+      .toLowerCase();
+
+
+  const filteredUsers =
+    users.filter(
+      (user) => {
+
+        const name =
+          String(
+            user?.full_name ||
+            ""
+          )
+            .toLowerCase();
+
+
+        const email =
+          String(
+            user?.email ||
+            ""
+          )
+            .toLowerCase();
+
+
+        const role =
+          String(
+            user?.role ||
+            ""
+          )
+            .trim()
+            .toLowerCase();
+
+
+        const matchesSearch =
+          name.includes(
+            normalizedSearch
+          ) ||
+          email.includes(
+            normalizedSearch
+          );
+
+
+        const matchesRole =
+          roleFilter === "All" ||
+          role ===
+            roleFilter
+              .trim()
+              .toLowerCase();
+
+
+        return (
+          matchesSearch &&
+          matchesRole
+        );
+
+      }
+    );
+
+
+  // ==========================================================
+  // FORMAT ROLE
+  // ==========================================================
+
+  const formatRole = (
+    role
+  ) => {
+
+    const value =
+      String(
+        role || ""
+      )
+        .trim()
+        .toLowerCase();
+
+
+    if (!value) {
+
+      return "-";
+
+    }
+
+
+    return (
+      value.charAt(0).toUpperCase() +
+      value.slice(1)
+    );
+
+  };
+
+
+  // ==========================================================
+  // CLOSE USER MODAL
+  // ==========================================================
+
+  const closeUserModal = () => {
+
+    setSelectedUser(
+      null
+    );
+
+  };
+
+
+  // ==========================================================
+  // CLOSE ADD MODAL
+  // ==========================================================
+
+  const closeAddModal = () => {
+
+    setShowAddModal(
+      false
+    );
+
+  };
+
+
+  // ==========================================================
+  // RENDER
+  // ==========================================================
 
   return (
+
     <div className="dashboard">
 
-  <Sidebar
-    collapsed={collapsed}
-    setCollapsed={setCollapsed}
-  />
 
-  <div className={`dashboard-content ${collapsed ? "collapsed" : ""}`}>
+      {/* =====================================================
+          SIDEBAR
+      ===================================================== */}
 
-    <Navbar />
+      <Sidebar
+        collapsed={
+          collapsed
+        }
+        setCollapsed={
+          setCollapsed
+        }
+      />
 
-    <div className="user-management">
 
-      {/* Header */}
+      {/* =====================================================
+          MAIN CONTENT
+      ===================================================== */}
 
-      <div className="page-header">
+      <div
+        className={
+          `dashboard-content ${
+            collapsed
+              ? "collapsed"
+              : ""
+          }`
+        }
+      >
 
-        <div>
 
-          <h1>User Management</h1>
+        {/* ===================================================
+            NAVBAR
+        =================================================== */}
 
-          <p>Manage all registered users.</p>
+        <Navbar />
 
-        </div>
 
-        <button
-          className="add-user-btn"
-          onClick={() => setShowAddModal(true)}
-        >
+        {/* ===================================================
+            USER MANAGEMENT
+        =================================================== */}
 
-          <FaPlus />
+        <div className="user-management">
 
-          Add User
 
-        </button>
+          {/* =================================================
+              HEADER
+          ================================================= */}
 
-      </div>
+          <div className="page-header">
 
-      {/* Toolbar */}
+            <div>
 
-      <div className="toolbar">
+              <h1>
+                User Management
+              </h1>
 
-        <div className="search-box">
+              <p>
+                Manage all registered users.
+              </p>
 
-          <FaSearch className="search-icon" />
+            </div>
 
-          <input
-            type="text"
-            placeholder="Search user..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
 
-        </div>
+            <button
+              type="button"
+              className="add-user-btn"
+              onClick={() =>
+                setShowAddModal(
+                  true
+                )
+              }
+            >
 
-        <select
-          value={roleFilter}
-          onChange={(e) => setRoleFilter(e.target.value)}
-        >
+              <FaPlus />
 
-          <option value="All">All Roles</option>
+              <span>
+                Add User
+              </span>
 
-          <option value="Admin">Admin</option>
+            </button>
 
-          <option value="Manufacturer">Manufacturer</option>
+          </div>
 
-          <option value="Recycler">Recycler</option>
 
-          <option value="Supplier">Supplier</option>
+          {/* =================================================
+              ERROR
+          ================================================= */}
 
-        </select>
+          {error && (
 
-      </div>
+            <div
+              className="api-error-message"
+              role="alert"
+            >
 
-      {/* Table */}
+              <strong>
+                Error:
+              </strong>{" "}
 
-      <div className="table-container">
+              {error}
 
-        <table>
+            </div>
 
-          <thead>
+          )}
 
-            <tr>
 
-              <th>ID</th>
+          {/* =================================================
+              TOOLBAR
+          ================================================= */}
 
-              <th>Name</th>
+          <div className="toolbar">
 
-              <th>Email</th>
 
-              <th>Role</th>
+            {/* SEARCH */}
 
-              <th>Status</th>
+            <div className="search-box">
 
-              <th>Actions</th>
+              <FaSearch
+                className="search-icon"
+              />
 
-            </tr>
 
-          </thead>
+              <input
+                type="text"
+                placeholder="Search user..."
+                value={
+                  search
+                }
+                onChange={(
+                  event
+                ) =>
+                  setSearch(
+                    event.target.value
+                  )
+                }
+              />
 
-          <tbody>
+            </div>
 
-            {loading ? (
 
-              <tr>
+            {/* ROLE FILTER */}
 
-                <td
-                  colSpan="6"
-                  style={{ textAlign: "center" }}
-                >
-                  Loading...
-                </td>
+            <select
+              value={
+                roleFilter
+              }
+              onChange={(
+                event
+              ) =>
+                setRoleFilter(
+                  event.target.value
+                )
+              }
+            >
 
-              </tr>
+              <option value="All">
+                All Roles
+              </option>
 
-            ) : filteredUsers.length === 0 ? (
+              <option value="admin">
+                Admin
+              </option>
 
-              <tr>
+              <option value="manufacturer">
+                Manufacturer
+              </option>
 
-                <td
-                  colSpan="6"
-                  style={{ textAlign: "center" }}
-                >
-                  No Users Found
-                </td>
+              <option value="recycler">
+                Recycler
+              </option>
 
-              </tr>
+              <option value="manager">
+                Manager
+              </option>
 
-            ) : (
+            </select>
 
-              filteredUsers.map((user) => (
 
-                <tr key={user.id}>
+            {/* REFRESH */}
 
-                  <td>{user.id}</td>
+            <button
+              type="button"
+              className="refresh-users-btn"
+              onClick={
+                fetchUsers
+              }
+              disabled={
+                loading
+              }
+              title="Refresh users"
+            >
 
-                  <td>{user.full_name}</td>
+              <FaSyncAlt
+                className={
+                  loading
+                    ? "refresh-spinning"
+                    : ""
+                }
+              />
 
-                  <td>{user.email}</td>
+            </button>
 
-                  <td>{user.role}</td>
+          </div>
 
-                  <td>
 
-                    <span className="status active">
+          {/* =================================================
+              USER COUNT
+          ================================================= */}
 
-                      Active
+          <div className="user-count">
 
-                    </span>
+            Showing{" "}
 
-                  </td>
+            <strong>
+              {
+                filteredUsers.length
+              }
+            </strong>
 
-                  <td className="actions">
+            {" "}of{" "}
 
-                    <FaEye
-                      className="view"
-                      title="View"
-                      onClick={() => setSelectedUser(user)}
-                    />
+            <strong>
+              {
+                users.length
+              }
+            </strong>
 
-                    <FaTrash
-                      className="delete"
-                      title="Delete"
-                      onClick={() => deleteUser(user.id)}
-                    />
+            {" "}users
 
-                  </td>
+          </div>
+
+
+          {/* =================================================
+              TABLE
+          ================================================= */}
+
+          <div className="table-container">
+
+            <table>
+
+              <thead>
+
+                <tr>
+
+                  <th>
+                    ID
+                  </th>
+
+                  <th>
+                    Name
+                  </th>
+
+                  <th>
+                    Email
+                  </th>
+
+                  <th>
+                    Role
+                  </th>
+
+                  <th>
+                    Status
+                  </th>
+
+                  <th>
+                    Actions
+                  </th>
 
                 </tr>
 
-              ))
+              </thead>
 
-            )}
 
-          </tbody>
+              <tbody>
 
-        </table>
+
+                {/* ===========================================
+                    LOADING
+                =========================================== */}
+
+                {loading ? (
+
+                  <tr>
+
+                    <td
+                      colSpan="6"
+                      className="table-message"
+                    >
+
+                      <div className="table-loading">
+
+                        <FaSyncAlt
+                          className="refresh-spinning"
+                        />
+
+                        <span>
+                          Loading users...
+                        </span>
+
+                      </div>
+
+                    </td>
+
+                  </tr>
+
+                )
+
+
+                /* ===========================================
+                    NO USERS
+                =========================================== */
+
+                : filteredUsers.length === 0 ? (
+
+                  <tr>
+
+                    <td
+                      colSpan="6"
+                      className="table-message"
+                    >
+
+                      {users.length === 0
+                        ? "No users found."
+                        : "No users match your search or role filter."
+                      }
+
+                    </td>
+
+                  </tr>
+
+                )
+
+
+                /* ===========================================
+                    USERS
+                =========================================== */
+
+                : (
+
+                  filteredUsers.map(
+                    (
+                      user
+                    ) => (
+
+                      <tr
+                        key={
+                          user.id
+                        }
+                      >
+
+
+                        {/* ID */}
+
+                        <td>
+                          {
+                            user.id
+                          }
+                        </td>
+
+
+                        {/* NAME */}
+
+                        <td>
+
+                          <strong>
+                            {
+                              user.full_name
+                            }
+                          </strong>
+
+                        </td>
+
+
+                        {/* EMAIL */}
+
+                        <td>
+                          {
+                            user.email
+                          }
+                        </td>
+
+
+                        {/* ROLE */}
+
+                        <td>
+
+                          <span
+                            className={
+                              `role-badge role-${String(
+                                user.role ||
+                                ""
+                              )
+                                .trim()
+                                .toLowerCase()}`
+                            }
+                          >
+
+                            {
+                              formatRole(
+                                user.role
+                              )
+                            }
+
+                          </span>
+
+                        </td>
+
+
+                        {/* STATUS */}
+
+                        <td>
+
+                          {/* =================================
+                              YOUR CURRENT USER API DOES NOT
+                              RETURN A STATUS FIELD.
+                              Therefore this remains Active
+                              until status is added to the
+                              User model/backend.
+                          ================================== */}
+
+                          <span
+                            className="status active"
+                          >
+
+                            Active
+
+                          </span>
+
+                        </td>
+
+
+                        {/* ACTIONS */}
+
+                        <td className="actions">
+
+
+                          {/* VIEW */}
+
+                          <button
+                            type="button"
+                            className="icon-action view"
+                            title="View User"
+                            disabled={
+                              viewingUserId ===
+                              user.id
+                            }
+                            onClick={() =>
+                              viewUser(
+                                user.id
+                              )
+                            }
+                          >
+
+                            {
+                              viewingUserId ===
+                              user.id
+                                ? (
+                                  <FaSyncAlt
+                                    className="refresh-spinning"
+                                  />
+                                )
+                                : (
+                                  <FaEye />
+                                )
+                            }
+
+                          </button>
+
+
+                          {/* DELETE */}
+
+                          <button
+                            type="button"
+                            className="icon-action delete"
+                            title="Delete User"
+                            disabled={
+                              deletingId ===
+                              user.id
+                            }
+                            onClick={() =>
+                              deleteUser(
+                                user.id
+                              )
+                            }
+                          >
+
+                            {
+                              deletingId ===
+                              user.id
+                                ? (
+                                  <FaSyncAlt
+                                    className="refresh-spinning"
+                                  />
+                                )
+                                : (
+                                  <FaTrash />
+                                )
+                            }
+
+                          </button>
+
+
+                        </td>
+
+                      </tr>
+
+                    )
+                  )
+
+                )}
+
+              </tbody>
+
+            </table>
+
+          </div>
+
+
+        </div>
+
+
+        {/* ===================================================
+            VIEW USER MODAL
+        ==================================================== */}
+
+        <UserModal
+          user={
+            selectedUser
+          }
+          onClose={
+            closeUserModal
+          }
+        />
+
+
+        {/* ===================================================
+            ADD USER MODAL
+        ==================================================== */}
+
+        <AddUserModal
+          isOpen={
+            showAddModal
+          }
+
+          onClose={
+            closeAddModal
+          }
+
+          refreshUsers={
+            handleAddUserSuccess
+          }
+        />
+
 
       </div>
 
     </div>
 
-  </div>
-        {/* View User Modal */}
-
-      <UserModal
-        user={selectedUser}
-        onClose={() => setSelectedUser(null)}
-      />
-
-      {/* Add User Modal */}
-
-      <AddUserModal
-        isOpen={showAddModal}
-        onClose={() => setShowAddModal(false)}
-        refreshUsers={fetchUsers}
-      />
-
-    </div>
-
-  
-
-);
+  );
 
 }
+
 
 export default UserManagement;

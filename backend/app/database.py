@@ -1,36 +1,54 @@
-from sqlalchemy import create_engine, text
-from sqlalchemy.orm import sessionmaker, declarative_base
-from dotenv import load_dotenv
-import os
+from sqlalchemy import create_engine
+from sqlalchemy.orm import declarative_base, sessionmaker
 
-load_dotenv()
 
-DATABASE_URL = os.getenv("DATABASE_URL")
+# ============================================================
+# DATABASE CONFIGURATION
+# ============================================================
 
-engine = create_engine(DATABASE_URL)
+DATABASE_URL = (
+    "postgresql://postgres:password123@localhost:5432/textile_waste_db"
+)
+
+
+# ============================================================
+# ENGINE
+# ============================================================
+
+engine = create_engine(
+    DATABASE_URL,
+    pool_pre_ping=True,
+)
+
+
+# ============================================================
+# SESSION
+# ============================================================
 
 SessionLocal = sessionmaker(
     autocommit=False,
     autoflush=False,
-    bind=engine
+    bind=engine,
 )
+
+
+# ============================================================
+# BASE
+# ============================================================
 
 Base = declarative_base()
 
 
+# ============================================================
+# DATABASE DEPENDENCY
+# ============================================================
+
 def get_db():
+
     db = SessionLocal()
+
     try:
         yield db
+
     finally:
         db.close()
-
-
-# Test database connection
-try:
-    with engine.connect() as connection:
-        connection.execute(text("SELECT 1"))
-        print("✅ PostgreSQL Connected Successfully!")
-except Exception as e:
-    print("❌ Database Connection Failed")
-    print(e)
