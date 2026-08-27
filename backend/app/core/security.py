@@ -26,7 +26,6 @@ def verify_password(
 
 
 def create_access_token(data: dict):
-
     to_encode = data.copy()
 
     expire = datetime.now(
@@ -48,10 +47,11 @@ def create_access_token(data: dict):
     )
 
 
+from jose import JWTError, jwt
+
+
 def verify_token(token: str):
-
     try:
-
         payload = jwt.decode(
             token,
             settings.SECRET_KEY,
@@ -60,5 +60,10 @@ def verify_token(token: str):
 
         return payload
 
-    except JWTError:
+    except JWTError as e:
+        print("=" * 60)
+        print("JWT ERROR:")
+        print(type(e).__name__)
+        print(str(e))
+        print("=" * 60)
         return None

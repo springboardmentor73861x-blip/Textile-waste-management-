@@ -1,4 +1,5 @@
 import os
+# pyrefly: ignore [missing-import]
 import torch
 
 MODEL = None
@@ -11,7 +12,7 @@ def load_model():
     if MODEL is not None:
         return MODEL
 
-    model_path = "app/ai/models/model.pth"
+    model_path = "app/ai_trainer/models/model.pth"
 
     if not os.path.exists(model_path):
         print("⚠️ Model file not found.")
