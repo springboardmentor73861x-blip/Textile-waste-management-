@@ -95,3 +95,15 @@ Refer to [`DEPLOYMENT.md`](file:///Users/brajnandanprasad/textile-waste-intellig
 ```bash
 docker-compose up -d --build
 ```
+
+---
+
+## 👤 Author & Project Metadata
+
+**Brajnandan Prasad**  
+*AI/ML Intern @ Infosys Springboard | Data Scientist | B.Tech CSE ’26*
+
+- 📌 **Internship Role:** AI/ML Intern @ Infosys Springboard
+- 💼 **Prior Internship Experience:** Data Science Intern @ SaiKet Systems & Oasis Infobyte | ML Intern @ Cognifyz
+- 🛠️ **Core Skills:** Python | SQL | Power BI | ML | DL | RAG | LangChain | LangGraph | Vector DBs | LLMs
+
