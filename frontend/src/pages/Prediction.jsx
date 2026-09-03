@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { predictTextile } from "../services/api";
 import "../css/Prediction.css";
 
@@ -22,6 +22,18 @@ const Prediction = () => {
     const [error, setError] = useState("");
 
     // ========================================================
+    // CLEANUP IMAGE PREVIEW
+    // ========================================================
+
+    useEffect(() => {
+        return () => {
+            if (preview) {
+                URL.revokeObjectURL(preview);
+            }
+        };
+    }, [preview]);
+
+    // ========================================================
     // FILE CHANGE
     // ========================================================
 
@@ -32,17 +44,29 @@ const Prediction = () => {
             return;
         }
 
+        // Validate image
         if (!selectedFile.type.startsWith("image/")) {
             setError("Please select a valid textile image.");
             return;
         }
 
-        setFile(selectedFile);
-        setError("");
-        setResult(null);
+        // Validate file size - 10 MB
+        if (selectedFile.size > 10 * 1024 * 1024) {
+            setError("Image size must be less than 10 MB.");
+            return;
+        }
+
+        // Remove old preview
+        if (preview) {
+            URL.revokeObjectURL(preview);
+        }
 
         const imageUrl = URL.createObjectURL(selectedFile);
+
+        setFile(selectedFile);
         setPreview(imageUrl);
+        setResult(null);
+        setError("");
     };
 
     // ========================================================
@@ -86,15 +110,45 @@ const Prediction = () => {
                 notes: formData.notes,
             });
 
-            console.log("Prediction response:", response);
+            console.log(
+                "================================================"
+            );
+
+            console.log(
+                "AI PREDICTION RESULT"
+            );
+
+            console.log(
+                response
+            );
+
+            console.log(
+                "================================================"
+            );
+
+            if (!response?.success) {
+                throw new Error(
+                    "Prediction was not completed successfully."
+                );
+            }
+
+            if (!response?.prediction) {
+                throw new Error(
+                    "Prediction result was not returned by the server."
+                );
+            }
 
             setResult(response);
 
         } catch (err) {
-            console.error("Prediction error:", err);
+            console.error(
+                "Prediction error:",
+                err
+            );
 
             const message =
                 err.response?.data?.detail ||
+                err.message ||
                 "Prediction failed. Please try again.";
 
             setError(message);
@@ -109,6 +163,10 @@ const Prediction = () => {
     // ========================================================
 
     const handleReset = () => {
+        if (preview) {
+            URL.revokeObjectURL(preview);
+        }
+
         setFile(null);
         setPreview(null);
         setResult(null);
@@ -126,33 +184,69 @@ const Prediction = () => {
     };
 
     // ========================================================
+    // FORMAT CONFIDENCE
+    // ========================================================
+
+    const formatPercentage = (value) => {
+        const number = Number(value);
+
+        if (Number.isNaN(number)) {
+            return "0.00";
+        }
+
+        return number.toFixed(2);
+    };
+
+    // ========================================================
     // RENDER
     // ========================================================
 
     return (
         <div className="prediction-page">
 
+            {/* ==================================================
+                HEADER
+            ================================================== */}
+
             <div className="prediction-header">
+
                 <div>
-                    <h1>Textile AI Prediction</h1>
+                    <h1>
+                        Textile AI Prediction
+                    </h1>
 
                     <p>
-                        Upload a textile image and let the AI
-                        identify the fabric type and provide
-                        recycling information.
+                        Upload a textile image and let the
+                        MobileNetV3 AI model identify the
+                        fabric type and provide recycling
+                        information.
                     </p>
                 </div>
+
             </div>
+
+
+            {/* ==================================================
+                MAIN LAYOUT
+            ================================================== */}
 
             <div className="prediction-layout">
 
+
                 {/* ==================================================
-                    LEFT SIDE
+                    LEFT CARD
                 ================================================== */}
 
                 <div className="prediction-card">
 
-                    <h2>Upload Textile</h2>
+                    <h2>
+                        Upload Textile
+                    </h2>
+
+
+                    {/* ==================================================
+                        UPLOAD
+                    ================================================== */}
 
                     <div className="upload-area">
 
@@ -164,25 +258,40 @@ const Prediction = () => {
                         />
 
                         <label htmlFor="textile-image">
+
                             {file
                                 ? file.name
                                 : "Choose Textile Image"}
+
                         </label>
 
                     </div>
 
+
+                    {/* ==================================================
+                        IMAGE PREVIEW
+                    ================================================== */}
+
                     {preview && (
+
                         <div className="image-preview">
 
                             <img
                                 src={preview}
-                                alt="Textile preview"
+                                alt="Selected textile"
                             />
 
                         </div>
+
                     )}
 
+
+                    {/* ==================================================
+                        FORM
+                    ================================================== */}
+
                     <form onSubmit={handlePredict}>
+
 
                         {/* SOURCE */}
 
@@ -202,6 +311,7 @@ const Prediction = () => {
 
                         </div>
 
+
                         {/* WASTE CATEGORY */}
 
                         <div className="form-group">
@@ -219,6 +329,7 @@ const Prediction = () => {
                             />
 
                         </div>
+
 
                         {/* COLOR */}
 
@@ -238,6 +349,7 @@ const Prediction = () => {
 
                         </div>
 
+
                         {/* CONDITION */}
 
                         <div className="form-group">
@@ -252,6 +364,7 @@ const Prediction = () => {
                                 onChange={handleChange}
                                 required
                             >
+
                                 <option value="New">
                                     New
                                 </option>
@@ -267,9 +380,11 @@ const Prediction = () => {
                                 <option value="Worn">
                                     Worn
                                 </option>
+
                             </select>
 
                         </div>
+
 
                         {/* WEIGHT */}
 
@@ -291,6 +406,7 @@ const Prediction = () => {
 
                         </div>
 
+
                         {/* QUANTITY */}
 
                         <div className="form-group">
@@ -308,6 +424,7 @@ const Prediction = () => {
                             />
 
                         </div>
+
 
                         {/* NOTES */}
 
@@ -327,23 +444,37 @@ const Prediction = () => {
 
                         </div>
 
+
+                        {/* ERROR */}
+
                         {error && (
+
                             <div className="prediction-error">
                                 {error}
                             </div>
+
                         )}
+
+
+                        {/* BUTTONS */}
 
                         <div className="prediction-buttons">
 
                             <button
                                 type="submit"
-                                disabled={loading || !file}
+                                disabled={
+                                    loading ||
+                                    !file
+                                }
                                 className="predict-button"
                             >
+
                                 {loading
                                     ? "Analyzing..."
                                     : "Predict Fabric"}
+
                             </button>
+
 
                             <button
                                 type="button"
@@ -359,15 +490,24 @@ const Prediction = () => {
 
                 </div>
 
+
                 {/* ==================================================
-                    RIGHT SIDE
+                    RIGHT CARD
                 ================================================== */}
 
                 <div className="prediction-card result-card">
 
-                    <h2>AI Prediction Result</h2>
+                    <h2>
+                        AI Prediction Result
+                    </h2>
+
+
+                    {/* ==================================================
+                        EMPTY
+                    ================================================== */}
 
                     {!result && !loading && (
+
                         <div className="empty-result">
 
                             <div className="empty-icon">
@@ -384,9 +524,16 @@ const Prediction = () => {
                             </p>
 
                         </div>
+
                     )}
 
+
+                    {/* ==================================================
+                        LOADING
+                    ================================================== */}
+
                     {loading && (
+
                         <div className="loading-result">
 
                             <div className="loader"></div>
@@ -396,16 +543,38 @@ const Prediction = () => {
                             </h3>
 
                             <p>
-                                Please wait.
+                                MobileNetV3 is processing the
+                                textile image.
                             </p>
 
                         </div>
+
                     )}
 
+
+                    {/* ==================================================
+                        RESULT
+                    ================================================== */}
+
                     {result?.prediction && (
+
                         <div className="result-content">
 
-                            {/* MAIN PREDICTION */}
+
+                            {/* ==================================================
+                                SUCCESS MESSAGE
+                            ================================================== */}
+
+                            <div className="prediction-success">
+
+                                ✓ AI prediction completed successfully
+
+                            </div>
+
+
+                            {/* ==================================================
+                                MAIN PREDICTION
+                            ================================================== */}
 
                             <div className="main-prediction">
 
@@ -414,8 +583,12 @@ const Prediction = () => {
                                 </span>
 
                                 <h3>
-                                    {result.prediction.fabric_type}
+                                    {
+                                        result.prediction
+                                            .fabric_type
+                                    }
                                 </h3>
+
 
                                 <div className="confidence">
 
@@ -424,22 +597,32 @@ const Prediction = () => {
                                     </span>
 
                                     <strong>
-                                        {Number(
+
+                                        {formatPercentage(
                                             result.prediction
                                                 .confidence_percentage
-                                        ).toFixed(2)}
+                                        )}
+
                                         %
+
                                     </strong>
 
                                 </div>
 
                             </div>
 
-                            {/* DETAILS */}
+
+                            {/* ==================================================
+                                RESULT GRID
+                            ================================================== */}
 
                             <div className="result-grid">
 
+
+                                {/* MATERIAL */}
+
                                 <div className="result-item">
+
                                     <span>
                                         Material
                                     </span>
@@ -447,12 +630,18 @@ const Prediction = () => {
                                     <strong>
                                         {
                                             result.prediction
-                                                .material_type
+                                                .material_type ||
+                                            "Not available"
                                         }
                                     </strong>
+
                                 </div>
 
+
+                                {/* COMPOSITION */}
+
                                 <div className="result-item">
+
                                     <span>
                                         Composition
                                     </span>
@@ -460,12 +649,18 @@ const Prediction = () => {
                                     <strong>
                                         {
                                             result.prediction
-                                                .composition
+                                                .composition ||
+                                            "Not available"
                                         }
                                     </strong>
+
                                 </div>
 
+
+                                {/* WASTE CATEGORY */}
+
                                 <div className="result-item">
+
                                     <span>
                                         Waste Category
                                     </span>
@@ -473,12 +668,18 @@ const Prediction = () => {
                                     <strong>
                                         {
                                             result.prediction
-                                                .waste_category
+                                                .waste_category ||
+                                            "Textile Waste"
                                         }
                                     </strong>
+
                                 </div>
 
+
+                                {/* RECYCLABILITY */}
+
                                 <div className="result-item">
+
                                     <span>
                                         Recyclability
                                     </span>
@@ -486,12 +687,18 @@ const Prediction = () => {
                                     <strong>
                                         {
                                             result.prediction
-                                                .recyclability
+                                                .recyclability ||
+                                            "Requires assessment"
                                         }
                                     </strong>
+
                                 </div>
 
+
+                                {/* BIODEGRADABILITY */}
+
                                 <div className="result-item">
+
                                     <span>
                                         Biodegradability
                                     </span>
@@ -499,14 +706,37 @@ const Prediction = () => {
                                     <strong>
                                         {
                                             result.prediction
-                                                .biodegradability
+                                                .biodegradability ||
+                                            "Depends on material"
                                         }
                                     </strong>
+
+                                </div>
+
+
+                                {/* CLASS INDEX */}
+
+                                <div className="result-item">
+
+                                    <span>
+                                        Class Index
+                                    </span>
+
+                                    <strong>
+                                        {
+                                            result.prediction
+                                                .class_index
+                                        }
+                                    </strong>
+
                                 </div>
 
                             </div>
 
-                            {/* PROCESSING */}
+
+                            {/* ==================================================
+                                RECOMMENDED PROCESSING
+                            ================================================== */}
 
                             <div className="result-section">
 
@@ -517,13 +747,17 @@ const Prediction = () => {
                                 <p>
                                     {
                                         result.prediction
-                                            .recommended_processing
+                                            .recommended_processing ||
+                                        "No recommendation available."
                                     }
                                 </p>
 
                             </div>
 
-                            {/* REUSE */}
+
+                            {/* ==================================================
+                                POTENTIAL REUSE
+                            ================================================== */}
 
                             <div className="result-section">
 
@@ -534,13 +768,17 @@ const Prediction = () => {
                                 <p>
                                     {
                                         result.prediction
-                                            .potential_reuse
+                                            .potential_reuse ||
+                                        "No reuse information available."
                                     }
                                 </p>
 
                             </div>
 
-                            {/* TOP PREDICTIONS */}
+
+                            {/* ==================================================
+                                TOP PREDICTIONS
+                            ================================================== */}
 
                             {result.prediction.top_predictions
                                 ?.length > 0 && (
@@ -550,6 +788,7 @@ const Prediction = () => {
                                     <h3>
                                         Top Predictions
                                     </h3>
+
 
                                     {result.prediction
                                         .top_predictions
@@ -564,22 +803,32 @@ const Prediction = () => {
                                                     {item.name}
                                                 </span>
 
+
                                                 <div className="prediction-bar">
 
                                                     <div
                                                         className="prediction-bar-fill"
                                                         style={{
-                                                            width: `${item.percentage}%`,
+                                                            width: `${Math.min(
+                                                                Number(
+                                                                    item.percentage
+                                                                ) || 0,
+                                                                100
+                                                            )}%`,
                                                         }}
                                                     ></div>
 
                                                 </div>
 
+
                                                 <strong>
-                                                    {Number(
+
+                                                    {formatPercentage(
                                                         item.percentage
-                                                    ).toFixed(2)}
+                                                    )}
+
                                                     %
+
                                                 </strong>
 
                                             </div>
@@ -587,24 +836,71 @@ const Prediction = () => {
                                         ))}
 
                                 </div>
+
                             )}
 
-                            {/* HISTORY ID */}
 
-                            {result.history_id && (
-                                <div className="history-info">
+                            {/* ==================================================
+                                MODEL INFO
+                            ================================================== */}
 
-                                    Prediction saved successfully.
+                            <div className="model-info">
+
+                                <div>
 
                                     <span>
-                                        History ID:{" "}
-                                        {result.history_id}
+                                        AI Model
                                     </span>
 
+                                    <strong>
+                                        {result.model ||
+                                            "MobileNetV3-Small"}
+                                    </strong>
+
                                 </div>
+
+
+                                <div>
+
+                                    <span>
+                                        Classes
+                                    </span>
+
+                                    <strong>
+                                        {
+                                            result.number_of_classes ||
+                                            7
+                                        }
+                                    </strong>
+
+                                </div>
+
+                            </div>
+
+
+                            {/* ==================================================
+                                HISTORY
+                            ================================================== */}
+
+                            {result.history_id && (
+
+                                <div className="history-info">
+
+                                    <span>
+                                        ✓ Prediction saved successfully
+                                    </span>
+
+                                    <strong>
+                                        History ID:{" "}
+                                        {result.history_id}
+                                    </strong>
+
+                                </div>
+
                             )}
 
                         </div>
+
                     )}
 
                 </div>

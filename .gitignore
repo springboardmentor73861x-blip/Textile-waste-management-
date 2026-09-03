@@ -2,7 +2,6 @@
 __pycache__/
 *.py[cod]
 *.pyo
-*.pyd
 
 # Virtual environments
 .venv/
@@ -13,30 +12,42 @@ env/
 # Environment files
 .env
 .env.*
-!.env.example
 
 # Node
 node_modules/
-dist/
+frontend/node_modules/
 
-# Uploaded/generated files
-backend/app/uploads/
-test_images/
+# Frontend build
+frontend/dist/
+frontend/build/
 
-# ML datasets and generated model files
-backend/dataset/
-backend/models/
-backend/training/
-backend/preprocessing/
-backend/inference/
-
-# Archives
-*.zip
+# Database
+*.db
+*.sqlite
+*.sqlite3
 
 # IDE
 .vscode/
 .idea/
 
-# OS
-.DS_Store
-Thumbs.db
+# Logs
+*.log
+
+# Unused MobileNet models
+backend/models/mobilenetv3/mobilenetv3_best.pth
+backend/models/mobilenetv3/mobilenetv3_small_final.pth
+backend/models/mobilenetv3/mobilenetv3_small_improved_best.pth
+backend/models/mobilenetv3/mobilenetv3_small_improved_final.pth
+backend/models/mobilenetv3/mobilenetv3_small_v3_best.pth
+backend/models/mobilenetv3/mobilenetv3_small_v3_final.pth
+
+# Keep the actual production model:
+# backend/models/mobilenetv3/mobilenetv3_small_best.pth
+# User uploaded images
+backend/app/uploads/images/*
+backend/models/mobilenetv3/mobilenetv3_best.pth
+backend/models/mobilenetv3/mobilenetv3_small_final.pth
+backend/models/mobilenetv3/mobilenetv3_small_improved_best.pth
+backend/models/mobilenetv3/mobilenetv3_small_improved_final.pth
+backend/models/mobilenetv3/mobilenetv3_small_v3_best.pth
+backend/models/mobilenetv3/mobilenetv3_small_v3_final.pth

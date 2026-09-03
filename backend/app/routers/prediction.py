@@ -1,6 +1,5 @@
 from pathlib import Path
 from io import BytesIO
-import csv
 
 import torch
 import torch.nn as nn
@@ -14,7 +13,6 @@ from fastapi import (
 )
 
 from torchvision import models, transforms
-
 from PIL import Image
 
 from app.database import SessionLocal
@@ -35,54 +33,30 @@ router = APIRouter(
 # PATH CONFIGURATION
 # ============================================================
 
-BACKEND_DIR = Path(
-    __file__
-).resolve().parents[2]
-
-
-# ============================================================
-# MOBILE NET V3 MODEL
-# ============================================================
+BACKEND_DIR = Path(__file__).resolve().parents[2]
 
 MODEL_PATH = (
     BACKEND_DIR
     / "models"
     / "mobilenetv3"
-    / "mobilenetv3_best.pth"
+    / "mobilenetv3_small_best.pth"
 )
 
 
 # ============================================================
-# TEXTILE METADATA
-# ============================================================
-
-METADATA_PATH = (
-    BACKEND_DIR
-    / "preprocessing"
-    / "dataset"
-    / "textile_metadata.csv"
-)
-
-
-# ============================================================
-# MODEL CONFIGURATION
-# IMPORTANT:
-# These MUST exactly match train_mobilenetv3.py
-# and preprocessing/dataset_loader.py
+# MODEL CLASSES
+# MUST EXACTLY MATCH TRAINING
 # ============================================================
 
 CLASS_NAMES = [
-    "Acrylic",
     "Cotton",
     "Denim",
-    "Linen",
-    "Nylon",
+    "Mixed Fabrics",
     "Polyester",
     "Rayon",
     "Silk",
     "Wool",
 ]
-
 
 NUM_CLASSES = len(CLASS_NAMES)
 
@@ -102,12 +76,10 @@ DEVICE = torch.device(
 
 # ============================================================
 # IMAGE TRANSFORM
-#
-# SAME NORMALIZATION USED DURING TRAINING
+# SAME AS VALIDATION / TEST
 # ============================================================
 
 transform = transforms.Compose([
-
     transforms.Resize(
         (IMAGE_SIZE, IMAGE_SIZE)
     ),
@@ -120,7 +92,6 @@ transform = transforms.Compose([
             0.456,
             0.406,
         ],
-
         std=[
             0.229,
             0.224,
@@ -131,21 +102,106 @@ transform = transforms.Compose([
 
 
 # ============================================================
-# GLOBAL MODEL
+# MODEL
 # ============================================================
 
 model = None
 
 
 # ============================================================
-# GLOBAL METADATA
+# TEXTILE METADATA
 # ============================================================
 
-metadata = {}
+TEXTILE_METADATA = {
+
+    "Cotton": {
+        "material_type": "Natural Fiber",
+        "composition": "Cellulose-based natural fiber",
+        "waste_category": "Natural Fiber Waste",
+        "recyclability": "High",
+        "biodegradability": "Biodegradable",
+        "recommended_processing":
+            "Mechanical fiber recycling; reuse for rags, wiping cloths and recycled cotton products",
+        "potential_reuse":
+            "Clothing, cleaning cloths, bags, insulation and recycled cotton products",
+    },
+
+    "Denim": {
+        "material_type": "Cotton-Based Textile",
+        "composition": "Primarily cotton",
+        "waste_category": "Cotton-Based Textile Waste",
+        "recyclability": "High",
+        "biodegradability": "Biodegradable depending on blend and finishes",
+        "recommended_processing":
+            "Upcycling or mechanical fiber recycling",
+        "potential_reuse":
+            "Bags, accessories, insulation and recycled cotton products",
+    },
+
+    "Mixed Fabrics": {
+        "material_type": "Blended Textile",
+        "composition": "Combination of multiple textile fibers",
+        "waste_category": "Blended Textile Waste",
+        "recyclability": "Requires fiber-composition assessment",
+        "biodegradability": "Depends on fiber composition",
+        "recommended_processing":
+            "Sort by fiber composition where possible; use specialized blended-textile recycling or upcycling",
+        "potential_reuse":
+            "Upcycled products and specialized recycled textile products",
+    },
+
+    "Polyester": {
+        "material_type": "Synthetic Fiber",
+        "composition": "Polyester / PET-based synthetic fiber",
+        "waste_category": "Synthetic Fiber Waste",
+        "recyclability": "High through suitable polyester recycling systems",
+        "biodegradability": "Non-biodegradable",
+        "recommended_processing":
+            "Polyester recycling into recycled polyester fibers and products",
+        "potential_reuse":
+            "Recycled polyester textiles, bags, filling and industrial products",
+    },
+
+    "Rayon": {
+        "material_type": "Regenerated Cellulosic Fiber",
+        "composition": "Regenerated cellulose",
+        "waste_category": "Regenerated Cellulosic Fiber Waste",
+        "recyclability": "Depends on recycling process",
+        "biodegradability": "Generally biodegradable depending on treatment and blend",
+        "recommended_processing":
+            "Reuse, upcycling and suitable fiber recovery through textile recycling",
+        "potential_reuse":
+            "Upcycled textile products and recovered fiber products",
+    },
+
+    "Silk": {
+        "material_type": "Natural Protein Fiber",
+        "composition": "Silk protein fiber",
+        "waste_category": "Natural Protein Fiber Waste",
+        "recyclability": "Reusable and suitable for selected fiber recovery",
+        "biodegradability": "Biodegradable",
+        "recommended_processing":
+            "Reuse, upcycling and suitable textile/fiber recovery",
+        "potential_reuse":
+            "Accessories, crafts, premium upcycled products and textile reuse",
+    },
+
+    "Wool": {
+        "material_type": "Natural Protein Fiber",
+        "composition": "Keratin-based natural fiber",
+        "waste_category": "Natural Protein Fiber Waste",
+        "recyclability": "High through reuse and mechanical recycling",
+        "biodegradability": "Biodegradable",
+        "recommended_processing":
+            "Reuse, repair, felting or mechanical fiber recycling",
+        "potential_reuse":
+            "Felt products, insulation, clothing, accessories and recycled wool products",
+    },
+}
 
 
 # ============================================================
-# LOAD MOBILENETV3 MODEL
+# LOAD MODEL
 # ============================================================
 
 def load_model():
@@ -158,7 +214,7 @@ def load_model():
     print()
     print("=" * 75)
     print("TEXTILE WASTE AI")
-    print("LOADING MOBILENETV3-LARGE")
+    print("LOADING MOBILENETV3-SMALL")
     print("=" * 75)
 
     print()
@@ -173,35 +229,24 @@ def load_model():
     print("Expected classes:")
 
     for index, class_name in enumerate(CLASS_NAMES):
-
-        print(
-            f"{index}: {class_name}"
-        )
-
-    print()
+        print(f"{index}: {class_name}")
 
     # ========================================================
-    # CHECK MODEL FILE
+    # CHECK MODEL
     # ========================================================
 
     if not MODEL_PATH.exists():
 
         raise FileNotFoundError(
-            f"MobileNetV3 model file was not found:\n"
+            "MobileNetV3 model file was not found:\n"
             f"{MODEL_PATH}"
         )
 
     # ========================================================
-    # CREATE MOBILENETV3-LARGE
-    #
-    # Training code used:
-    #
-    # models.mobilenet_v3_large(...)
-    #
-    # with classifier changed to 9 classes.
+    # CREATE MOBILENETV3-SMALL
     # ========================================================
 
-    network = models.mobilenet_v3_large(
+    network = models.mobilenet_v3_small(
         weights=None
     )
 
@@ -228,7 +273,7 @@ def load_model():
     )
 
     # ========================================================
-    # CHECKPOINT FORMAT
+    # EXTRACT STATE DICT
     # ========================================================
 
     if (
@@ -236,54 +281,51 @@ def load_model():
         and "model_state_dict" in checkpoint
     ):
 
-        state_dict = (
-            checkpoint[
-                "model_state_dict"
-            ]
-        )
+        state_dict = checkpoint[
+            "model_state_dict"
+        ]
 
         saved_classes = checkpoint.get(
             "class_names"
         )
 
-        # ----------------------------------------------------
-        # VERIFY CLASS MAPPING
-        # ----------------------------------------------------
+        if saved_classes is not None:
 
-        if saved_classes is None:
-
-            raise RuntimeError(
-                "MobileNetV3 checkpoint does not contain "
-                "'class_names'. Cannot safely verify "
-                "the model class mapping."
+            saved_classes = list(
+                saved_classes
             )
 
-        saved_classes = list(
-            saved_classes
-        )
+            if saved_classes != CLASS_NAMES:
 
-        if saved_classes != CLASS_NAMES:
-
-            raise RuntimeError(
-                "MOBILE NET V3 CLASS MAPPING MISMATCH.\n\n"
-                f"Checkpoint classes:\n"
-                f"{saved_classes}\n\n"
-                f"API classes:\n"
-                f"{CLASS_NAMES}\n\n"
-                "The API and trained model must use "
-                "the exact same class order."
-            )
+                raise RuntimeError(
+                    "MODEL CLASS MAPPING MISMATCH.\n\n"
+                    f"Checkpoint classes:\n"
+                    f"{saved_classes}\n\n"
+                    f"API classes:\n"
+                    f"{CLASS_NAMES}"
+                )
 
     else:
-
-        # ----------------------------------------------------
-        # Raw state_dict fallback
-        # ----------------------------------------------------
 
         state_dict = checkpoint
 
     # ========================================================
-    # LOAD MODEL WEIGHTS
+    # REMOVE DataParallel PREFIX
+    # ========================================================
+
+    if isinstance(state_dict, dict):
+
+        state_dict = {
+            key.replace(
+                "module.",
+                "",
+                1
+            ): value
+            for key, value in state_dict.items()
+        }
+
+    # ========================================================
+    # LOAD WEIGHTS
     # ========================================================
 
     try:
@@ -295,21 +337,18 @@ def load_model():
     except Exception as error:
 
         raise RuntimeError(
-            "Could not load MobileNetV3 model weights.\n"
+            "Could not load MobileNetV3-Small "
+            "model weights.\n"
             f"Error: {error}"
         )
 
     # ========================================================
-    # MOVE TO DEVICE
+    # DEVICE
     # ========================================================
 
     network = network.to(
         DEVICE
     )
-
-    # ========================================================
-    # EVALUATION MODE
-    # ========================================================
 
     network.eval()
 
@@ -317,24 +356,22 @@ def load_model():
 
     print()
     print(
-        "MobileNetV3-Large loaded successfully."
+        "MobileNetV3-Small loaded successfully."
+    )
+
+    print(
+        f"Number of classes: {NUM_CLASSES}"
     )
 
     print()
-    print("Model class mapping:")
+    print("Class mapping:")
 
     for index, class_name in enumerate(
         CLASS_NAMES
     ):
-
         print(
             f"{index}: {class_name}"
         )
-
-    print()
-    print(
-        f"Number of classes: {NUM_CLASSES}"
-    )
 
     print("=" * 75)
 
@@ -342,147 +379,20 @@ def load_model():
 
 
 # ============================================================
-# LOAD TEXTILE METADATA
-# ============================================================
-
-def load_metadata():
-
-    global metadata
-
-    # Already loaded
-    if metadata:
-        return metadata
-
-    print()
-    print(
-        "Loading textile metadata..."
-    )
-
-    print(
-        f"Metadata path: {METADATA_PATH}"
-    )
-
-    # ========================================================
-    # CHECK FILE
-    # ========================================================
-
-    if not METADATA_PATH.exists():
-
-        print()
-        print(
-            "WARNING: Metadata file not found."
-        )
-
-        print(
-            METADATA_PATH
-        )
-
-        return metadata
-
-    # ========================================================
-    # READ CSV
-    # ========================================================
-
-    try:
-
-        with open(
-            METADATA_PATH,
-            "r",
-            encoding="utf-8-sig",
-            newline=""
-        ) as file:
-
-            reader = csv.DictReader(
-                file
-            )
-
-            for row in reader:
-
-                fabric_type = (
-                    row.get(
-                        "fabric_type",
-                        ""
-                    )
-                    or ""
-                ).strip()
-
-                if not fabric_type:
-                    continue
-
-                key = (
-                    fabric_type
-                    .strip()
-                    .lower()
-                )
-
-                # ------------------------------------------------
-                # Keep first valid row for each fabric type.
-                #
-                # CSV contains many image records for the same
-                # fabric type, but their textile metadata is shared.
-                # ------------------------------------------------
-
-                if key not in metadata:
-
-                    metadata[key] = row
-
-        print()
-        print(
-            f"Metadata records loaded: "
-            f"{len(metadata)}"
-        )
-
-        print()
-        print(
-            "Metadata fabric types:"
-        )
-
-        for fabric_type in metadata:
-
-            print(
-                f" - {fabric_type}"
-            )
-
-    except Exception as error:
-
-        print()
-        print(
-            "WARNING: Could not load metadata."
-        )
-
-        print(
-            f"Error: {error}"
-        )
-
-    return metadata
-
-
-# ============================================================
-# GET METADATA FOR FABRIC
+# GET TEXTILE METADATA
 # ============================================================
 
 def get_metadata(
     fabric_type: str
 ):
 
-    loaded_metadata = (
-        load_metadata()
-    )
-
-    row = loaded_metadata.get(
+    data = TEXTILE_METADATA.get(
         fabric_type
-        .strip()
-        .lower()
     )
 
-    # ========================================================
-    # FALLBACK
-    # ========================================================
-
-    if not row:
+    if data is None:
 
         return {
-
             "material_type":
                 "Information not available",
 
@@ -503,84 +413,9 @@ def get_metadata(
 
             "potential_reuse":
                 "Recovered textile products",
-
         }
 
-    # ========================================================
-    # SAFE VALUE HELPER
-    # ========================================================
-
-    def get_value(
-        key: str,
-        default: str
-    ):
-
-        value = row.get(
-            key,
-            default
-        )
-
-        if value is None:
-            return default
-
-        value = str(
-            value
-        ).strip()
-
-        if not value:
-            return default
-
-        return value
-
-    # ========================================================
-    # RETURN METADATA
-    # ========================================================
-
-    return {
-
-        "material_type":
-            get_value(
-                "material_type",
-                "Information not available"
-            ),
-
-        "composition":
-            get_value(
-                "composition",
-                "Information not available"
-            ),
-
-        "waste_category":
-            get_value(
-                "waste_category",
-                "Textile Waste"
-            ),
-
-        "recyclability":
-            get_value(
-                "recyclability",
-                "Requires assessment"
-            ),
-
-        "biodegradability":
-            get_value(
-                "biodegradability",
-                "Depends on material"
-            ),
-
-        "recommended_processing":
-            get_value(
-                "recommended_processing",
-                "Material-specific textile recycling"
-            ),
-
-        "potential_reuse":
-            get_value(
-                "potential_reuse",
-                "Recovered textile products"
-            ),
-
-    }
+    return data
 
 
 # ============================================================
@@ -609,24 +444,16 @@ def predict_image(
         image
     )
 
-    # ========================================================
-    # ADD BATCH DIMENSION
-    # ========================================================
-
     tensor = tensor.unsqueeze(
         0
     )
-
-    # ========================================================
-    # DEVICE
-    # ========================================================
 
     tensor = tensor.to(
         DEVICE
     )
 
     # ========================================================
-    # MODEL PREDICTION
+    # PREDICTION
     # ========================================================
 
     with torch.no_grad():
@@ -653,7 +480,7 @@ def predict_image(
         )
 
     # ========================================================
-    # SORT PROBABILITIES
+    # SORT
     # ========================================================
 
     sorted_indices = torch.argsort(
@@ -666,30 +493,25 @@ def predict_image(
     # ========================================================
 
     predicted_index = (
-        sorted_indices[0]
-        .item()
+        sorted_indices[0].item()
     )
 
     predicted_probability = (
         probabilities[
             predicted_index
-        ]
-        .item()
+        ].item()
     )
 
-    fabric_type = (
-        CLASS_NAMES[
-            predicted_index
-        ]
-    )
+    fabric_type = CLASS_NAMES[
+        predicted_index
+    ]
 
     confidence_percentage = (
-        predicted_probability
-        * 100
+        predicted_probability * 100
     )
 
     # ========================================================
-    # TOP 5 PREDICTIONS
+    # TOP 5
     # ========================================================
 
     top_predictions = []
@@ -704,25 +526,21 @@ def predict_image(
         start=1
     ):
 
-        index = (
-            index_tensor
-            .item()
-        )
+        index = index_tensor.item()
 
         probability = (
-            probabilities[index]
-            .item()
+            probabilities[index].item()
         )
 
         top_predictions.append({
 
-            "rank":
-                rank,
+            "rank": rank,
 
-            "index":
-                index,
+            "index": index,
 
-            "name":
+            "name": CLASS_NAMES[index],
+
+            "fabric_type":
                 CLASS_NAMES[index],
 
             "probability":
@@ -730,15 +548,10 @@ def predict_image(
 
             "percentage":
                 probability * 100,
-
         })
 
     # ========================================================
-    # ALL CLASS PROBABILITIES
-    #
-    # IMPORTANT:
-    # These are the SAME softmax probabilities.
-    # They will sum approximately to 100%.
+    # ALL 7 CLASS PROBABILITIES
     # ========================================================
 
     all_class_probabilities = []
@@ -748,16 +561,16 @@ def predict_image(
     ):
 
         probability = (
-            probabilities[index]
-            .item()
+            probabilities[index].item()
         )
 
         all_class_probabilities.append({
 
-            "index":
-                index,
+            "index": index,
 
-            "name":
+            "name": CLASS_NAMES[index],
+
+            "fabric_type":
                 CLASS_NAMES[index],
 
             "probability":
@@ -765,7 +578,6 @@ def predict_image(
 
             "percentage":
                 probability * 100,
-
         })
 
     # ========================================================
@@ -777,14 +589,10 @@ def predict_image(
     )
 
     # ========================================================
-    # RESULT
+    # RETURN RESULT
     # ========================================================
 
     return {
-
-        # ----------------------------------------------------
-        # Main prediction
-        # ----------------------------------------------------
 
         "fabric_type":
             fabric_type,
@@ -795,19 +603,11 @@ def predict_image(
         "class_index":
             predicted_index,
 
-        # ----------------------------------------------------
-        # Confidence
-        # ----------------------------------------------------
-
         "confidence":
             predicted_probability,
 
         "confidence_percentage":
             confidence_percentage,
-
-        # ----------------------------------------------------
-        # Material information
-        # ----------------------------------------------------
 
         "material_type":
             textile_metadata[
@@ -824,10 +624,6 @@ def predict_image(
                 "composition"
             ],
 
-        # ----------------------------------------------------
-        # Waste information
-        # ----------------------------------------------------
-
         "waste_category":
             textile_metadata[
                 "waste_category"
@@ -837,10 +633,6 @@ def predict_image(
             textile_metadata[
                 "waste_category"
             ],
-
-        # ----------------------------------------------------
-        # Sustainability
-        # ----------------------------------------------------
 
         "recyclability":
             textile_metadata[
@@ -852,10 +644,6 @@ def predict_image(
                 "biodegradability"
             ],
 
-        # ----------------------------------------------------
-        # Processing
-        # ----------------------------------------------------
-
         "recommended_processing":
             textile_metadata[
                 "recommended_processing"
@@ -866,34 +654,19 @@ def predict_image(
                 "recommended_processing"
             ],
 
-        # ----------------------------------------------------
-        # Reuse
-        # ----------------------------------------------------
-
         "potential_reuse":
             textile_metadata[
                 "potential_reuse"
             ],
 
-        # ----------------------------------------------------
-        # Top 5
-        # ----------------------------------------------------
-
         "top_predictions":
             top_predictions,
 
-        # Keep this alias because your frontend
-        # may already use "probabilities".
         "probabilities":
             top_predictions,
 
-        # ----------------------------------------------------
-        # ALL 9
-        # ----------------------------------------------------
-
         "all_class_probabilities":
             all_class_probabilities,
-
     }
 
 
@@ -926,16 +699,12 @@ def save_prediction_history(
         if weight:
 
             try:
-
-                weight_value = float(
-                    weight
-                )
+                weight_value = float(weight)
 
             except (
                 ValueError,
                 TypeError
             ):
-
                 weight_value = None
 
         # ====================================================
@@ -947,20 +716,16 @@ def save_prediction_history(
         if quantity:
 
             try:
-
-                quantity_value = int(
-                    quantity
-                )
+                quantity_value = int(quantity)
 
             except (
                 ValueError,
                 TypeError
             ):
-
                 quantity_value = None
 
         # ====================================================
-        # CREATE DATABASE RECORD
+        # CREATE RECORD
         # ====================================================
 
         history = PredictionHistory(
@@ -1020,12 +785,7 @@ def save_prediction_history(
             potential_reuse=prediction[
                 "potential_reuse"
             ],
-
         )
-
-        # ====================================================
-        # SAVE
-        # ====================================================
 
         db.add(
             history
@@ -1132,7 +892,6 @@ def history_to_dict(
                 if history.created_at
                 else None
             ),
-
     }
 
 
@@ -1140,9 +899,7 @@ def history_to_dict(
 # PREDICT API
 # ============================================================
 
-@router.post(
-    "/predict"
-)
+@router.post("/predict")
 async def predict_textile(
 
     file: UploadFile = File(...),
@@ -1164,7 +921,7 @@ async def predict_textile(
 ):
 
     # ========================================================
-    # FILE VALIDATION
+    # VALIDATE FILE
     # ========================================================
 
     if not file:
@@ -1242,9 +999,7 @@ async def predict_textile(
 
         raise HTTPException(
             status_code=400,
-            detail=(
-                "Uploaded file is not a valid image."
-            )
+            detail="Uploaded file is not a valid image."
         )
 
     # ========================================================
@@ -1276,10 +1031,7 @@ async def predict_textile(
 
         raise HTTPException(
             status_code=500,
-            detail=(
-                "MobileNetV3 AI model could not be loaded "
-                "or its class mapping is invalid."
-            )
+            detail=str(error)
         )
 
     except Exception as error:
@@ -1290,9 +1042,7 @@ async def predict_textile(
 
         raise HTTPException(
             status_code=500,
-            detail=(
-                "AI model prediction failed."
-            )
+            detail="AI model prediction failed."
         )
 
     # ========================================================
@@ -1320,7 +1070,6 @@ async def predict_textile(
             quantity=quantity,
 
             notes=notes,
-
         )
 
     except Exception as error:
@@ -1366,11 +1115,10 @@ async def predict_textile(
 
         "notes":
             notes,
-
     }
 
     # ========================================================
-    # FINAL RESPONSE
+    # RESPONSE
     # ========================================================
 
     return {
@@ -1382,7 +1130,7 @@ async def predict_textile(
             "AI prediction completed successfully.",
 
         "model":
-            "MobileNetV3-Large",
+            "MobileNetV3-Small",
 
         "number_of_classes":
             NUM_CLASSES,
@@ -1395,17 +1143,14 @@ async def predict_textile(
 
         "history_id":
             history.id,
-
     }
 
 
 # ============================================================
-# GET ALL PREDICTION HISTORY
+# GET HISTORY
 # ============================================================
 
-@router.get(
-    "/history"
-)
+@router.get("/history")
 def get_prediction_history():
 
     db = SessionLocal()
@@ -1432,12 +1177,9 @@ def get_prediction_history():
 
             "history":
                 [
-                    history_to_dict(
-                        record
-                    )
+                    history_to_dict(record)
                     for record in records
                 ],
-
         }
 
     except Exception as error:
@@ -1448,9 +1190,7 @@ def get_prediction_history():
 
         raise HTTPException(
             status_code=500,
-            detail=(
-                "Could not fetch prediction history."
-            )
+            detail="Could not fetch prediction history."
         )
 
     finally:
@@ -1459,12 +1199,10 @@ def get_prediction_history():
 
 
 # ============================================================
-# GET SINGLE PREDICTION HISTORY
+# GET SINGLE HISTORY
 # ============================================================
 
-@router.get(
-    "/history/{history_id}"
-)
+@router.get("/history/{history_id}")
 def get_prediction_history_by_id(
     history_id: int
 ):
@@ -1488,9 +1226,7 @@ def get_prediction_history_by_id(
 
             raise HTTPException(
                 status_code=404,
-                detail=(
-                    "Prediction history record not found."
-                )
+                detail="Prediction history record not found."
             )
 
         return {
@@ -1499,10 +1235,7 @@ def get_prediction_history_by_id(
                 True,
 
             "history":
-                history_to_dict(
-                    record
-                ),
-
+                history_to_dict(record),
         }
 
     finally:
@@ -1511,12 +1244,10 @@ def get_prediction_history_by_id(
 
 
 # ============================================================
-# DELETE PREDICTION HISTORY
+# DELETE HISTORY
 # ============================================================
 
-@router.delete(
-    "/history/{history_id}"
-)
+@router.delete("/history/{history_id}")
 def delete_prediction_history(
     history_id: int
 ):
@@ -1540,9 +1271,7 @@ def delete_prediction_history(
 
             raise HTTPException(
                 status_code=404,
-                detail=(
-                    "Prediction history record not found."
-                )
+                detail="Prediction history record not found."
             )
 
         db.delete(
@@ -1558,7 +1287,6 @@ def delete_prediction_history(
 
             "message":
                 "Prediction history deleted successfully.",
-
         }
 
     except HTTPException:
@@ -1575,9 +1303,7 @@ def delete_prediction_history(
 
         raise HTTPException(
             status_code=500,
-            detail=(
-                "Could not delete prediction history."
-            )
+            detail="Could not delete prediction history."
         )
 
     finally:

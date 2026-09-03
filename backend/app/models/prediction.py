@@ -3,8 +3,8 @@ from sqlalchemy import (
     Integer,
     String,
     Float,
-    Text,
     DateTime,
+    Text,
 )
 
 from sqlalchemy.sql import func
@@ -19,101 +19,101 @@ class PredictionHistory(Base):
     id = Column(
         Integer,
         primary_key=True,
-        index=True,
+        index=True
     )
 
     filename = Column(
         String(255),
-        nullable=False,
+        nullable=False
     )
 
     fabric_type = Column(
         String(100),
-        nullable=False,
+        nullable=False
     )
 
     class_index = Column(
         Integer,
-        nullable=False,
+        nullable=False
     )
 
     confidence = Column(
         Float,
-        nullable=False,
+        nullable=False
     )
 
     confidence_percentage = Column(
         Float,
-        nullable=False,
+        nullable=False
     )
 
     source = Column(
         String(100),
-        nullable=True,
+        nullable=True
     )
 
     waste_category = Column(
-        String(100),
-        nullable=True,
+        String(150),
+        nullable=True
     )
 
     color = Column(
         String(100),
-        nullable=True,
+        nullable=True
     )
 
     condition = Column(
         String(100),
-        nullable=True,
+        nullable=True
     )
 
     weight = Column(
         Float,
-        nullable=True,
+        nullable=True
     )
 
     quantity = Column(
         Integer,
-        nullable=True,
+        nullable=True
     )
 
     notes = Column(
         Text,
-        nullable=True,
+        nullable=True
     )
 
     material_type = Column(
-        String(255),
-        nullable=True,
+        String(150),
+        nullable=True
     )
 
     composition = Column(
-        Text,
-        nullable=True,
+        String(255),
+        nullable=True
     )
 
     recyclability = Column(
-        String(100),
-        nullable=True,
+        String(255),
+        nullable=True
     )
 
     biodegradability = Column(
-        String(100),
-        nullable=True,
+        String(255),
+        nullable=True
     )
 
     recommended_processing = Column(
         Text,
-        nullable=True,
+        nullable=True
     )
 
     potential_reuse = Column(
         Text,
-        nullable=True,
+        nullable=True
     )
 
     created_at = Column(
         DateTime(timezone=True),
         server_default=func.now(),
-        nullable=False,
+        nullable=False
     )
