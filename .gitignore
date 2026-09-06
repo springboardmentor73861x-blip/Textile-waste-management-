@@ -86,3 +86,12 @@ datasets/
 DeepFashion/
 IBUG/
 
+node_modules/
+**/node_modules/
+
+dataset/processed/
+
+*.log
+
+.env
+**/.env
