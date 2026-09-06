@@ -1,0 +1,493 @@
+/* ===========================
+   GLOBAL
+=========================== */
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+html,
+body,
+#root{
+
+    width:100%;
+    height:100%;
+
+}
+
+/* ===========================
+   BACKGROUND
+=========================== */
+
+.login-page{
+
+    width:100%;
+    height:100vh;
+
+    background-image:
+    linear-gradient(
+        rgba(5,10,25,.55),
+        rgba(5,10,25,.75)
+    ),
+    url("../assets/background.jpg");
+
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    background-attachment:fixed;
+
+}
+
+/* ===========================
+   DARK OVERLAY
+=========================== */
+
+.dark-overlay{
+
+    width:100%;
+    height:100%;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+}
+
+/* ===========================
+   MAIN LAYOUT
+=========================== */
+
+.hero{
+
+    width:100%;
+
+    max-width:1500px;
+
+    display:flex;
+
+    justify-content:space-between;
+
+    align-items:center;
+
+    padding:0 90px;
+
+}
+
+/* ===========================
+   LEFT CONTENT
+=========================== */
+
+.hero-left{
+
+    width:52%;
+
+    color:white;
+
+}
+
+.hero-left h1{
+
+    font-size:62px;
+
+    font-weight:700;
+
+    line-height:1.15;
+
+    margin-bottom:25px;
+
+    text-shadow:0px 5px 20px rgba(0,0,0,.4);
+
+}
+
+.hero-left p{
+
+    width:90%;
+
+    font-size:21px;
+
+    line-height:1.8;
+
+    color:#d1d5db;
+
+}
+
+/* ===========================
+   FEATURES
+=========================== */
+
+.features{
+
+    margin-top:45px;
+
+}
+
+.feature{
+
+    margin-bottom:18px;
+
+    font-size:20px;
+
+    background:rgba(255,255,255,.10);
+
+    border-left:5px solid #22c55e;
+
+    padding:18px;
+
+    border-radius:12px;
+
+    backdrop-filter:blur(10px);
+
+}
+
+/* ===========================
+   LOGIN CARD
+=========================== */
+
+.login-container{
+
+    width:430px;
+
+    background:rgba(255,255,255,.10);
+
+    backdrop-filter:blur(22px);
+
+    border:1px solid rgba(255,255,255,.18);
+
+    border-radius:25px;
+
+    padding:45px;
+
+    box-shadow:
+    0 20px 60px rgba(0,0,0,.45);
+
+    animation:fadeUp .8s ease;
+
+}
+
+.login-container h2{
+
+    color:white;
+
+    text-align:center;
+
+    font-size:34px;
+
+    margin-bottom:10px;
+
+}
+
+.subtitle{
+
+    text-align:center;
+
+    color:#ddd;
+
+    margin-bottom:35px;
+
+}
+
+/* ===========================
+   INPUTS
+=========================== */
+
+.input-box{
+
+    display:flex;
+
+    align-items:center;
+
+    background:rgba(255,255,255,.15);
+
+    margin-bottom:20px;
+
+    padding:15px;
+
+    border-radius:14px;
+
+}
+
+.icon{
+
+    color:white;
+
+    font-size:18px;
+
+    margin-right:12px;
+
+}
+
+.input-box input{
+
+    flex:1;
+
+    border:none;
+
+    background:none;
+
+    outline:none;
+
+    color:white;
+
+    font-size:16px;
+
+}
+
+.input-box input::placeholder{
+
+    color:#d6d6d6;
+
+}
+
+/* ===========================
+   BUTTON
+=========================== */
+
+.login-btn{
+
+    width:100%;
+
+    padding:16px;
+
+    margin-top:10px;
+
+    border:none;
+
+    border-radius:14px;
+
+    background:linear-gradient(
+        90deg,
+        #22c55e,
+        #16a34a
+    );
+
+    color:white;
+
+    font-size:18px;
+
+    font-weight:600;
+
+    cursor:pointer;
+
+    transition:.4s;
+
+}
+
+.login-btn:hover{
+
+    transform:translateY(-4px);
+
+    box-shadow:
+    0 12px 30px rgba(34,197,94,.45);
+
+}
+
+/* ===========================
+   REGISTER
+=========================== */
+
+.register{
+
+    text-align:center;
+
+    margin-top:28px;
+
+    color:white;
+
+}
+
+.register a{
+
+    margin-left:8px;
+
+    color:#22c55e;
+
+    text-decoration:none;
+
+    font-weight:bold;
+
+}
+
+.register a:hover{
+
+    color:#4ade80;
+
+}
+
+/* ===========================
+   ANIMATION
+=========================== */
+
+@keyframes fadeUp{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(40px);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+/* ===========================
+   RESPONSIVE
+=========================== */
+
+@media(max-width:1000px){
+
+.hero{
+
+    flex-direction:column;
+
+    text-align:center;
+
+}
+
+.hero-left{
+
+    width:100%;
+
+    margin-bottom:50px;
+
+}
+
+.hero-left h1{
+
+    font-size:45px;
+
+}
+
+.hero-left p{
+
+    width:100%;
+
+}
+
+.login-container{
+
+    width:100%;
+
+    max-width:450px;
+
+}
+
+}
+/* =====================================================
+   EDIT / UPDATE BUTTONS
+   ===================================================== */
+
+   .edit-button {
+    width: auto !important;
+    margin: 0 !important;
+    padding: 9px 16px !important;
+    border: none;
+    border-radius: 8px;
+    background: #2563eb !important;
+    color: white;
+    font-size: 14px !important;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.edit-button:hover {
+    background: #1d4ed8 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(37, 99, 235, 0.35);
+}
+
+
+/* =====================================================
+   EDIT MODE BUTTON CONTAINER
+   ===================================================== */
+
+.edit-buttons {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 30px;
+}
+
+
+/* Override the general button width */
+.edit-buttons button {
+    width: auto !important;
+    flex: 1;
+    margin-bottom: 0 !important;
+}
+
+
+/* =====================================================
+   UPDATE BUTTON
+   ===================================================== */
+
+.update-button {
+    background: linear-gradient(
+        90deg,
+        #22c55e,
+        #16a34a
+    ) !important;
+}
+
+.update-button:hover {
+    transform: translateY(-3px);
+    box-shadow:
+        0 12px 30px rgba(34, 197, 94, 0.45);
+}
+
+
+/* =====================================================
+   CANCEL BUTTON
+   ===================================================== */
+
+.cancel-button {
+    background: #64748b !important;
+}
+
+.cancel-button:hover {
+    background: #475569 !important;
+    transform: translateY(-3px);
+    box-shadow:
+        0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+
+/* =====================================================
+   EDITING ROW
+   ===================================================== */
+
+.inventory-table .edit-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+}
+
+
+/* =====================================================
+   MOBILE
+   ===================================================== */
+
+@media (max-width: 600px) {
+
+    .edit-buttons {
+        flex-direction: column;
+    }
+
+    .edit-buttons button {
+        width: 100% !important;
+    }
+
+}
