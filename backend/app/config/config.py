@@ -3,10 +3,10 @@ import os
 
 load_dotenv()
 
-DATABASE_URL = os.getenv("DATABASE_URL")
-SECRET_KEY = os.getenv("SECRET_KEY")
-ALGORITHM = os.getenv("ALGORITHM")
-ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES"))
+DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://postgres:password@localhost:5432/textile_waste_db")
+SECRET_KEY = os.getenv("SECRET_KEY", "textile-waste-intelligence-secret-key-2026")
+ALGORITHM = os.getenv("ALGORITHM", "HS256")
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES", "1440"))
 
 # Configurable estimates. Inventory quantities are assumed to be kilograms.
 CO2_SAVINGS_PER_KG = float(os.getenv("CO2_SAVINGS_PER_KG", "2.5"))

@@ -8,12 +8,15 @@ import torch.nn.functional as F
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
-base_dir = r"C:\Users\Sanju b\OneDrive\Desktop\Infosys Project\backend"
+base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 MODEL_PATH = os.path.join(base_dir, "ml", "models", "product_classifier.pth")
 CLASS_MAPPING_PATH = os.path.join(base_dir, "model", "class_mapping.json")
 
 model = None
 class_names = []
+
+def is_model_loaded():
+    return model is not None and len(class_names) > 0
 
 if os.path.exists(MODEL_PATH) and os.path.exists(CLASS_MAPPING_PATH):
     # Load class mapping
@@ -34,7 +37,7 @@ if os.path.exists(MODEL_PATH) and os.path.exists(CLASS_MAPPING_PATH):
     model = model.to(DEVICE)
     model.eval()
 else:
-    print(f"WARNING: Model or mapping not found. Please ensure {MODEL_PATH} and {CLASS_MAPPING_PATH} exist.")
+    print(f"WARNING: Model or mapping not found. Checked {MODEL_PATH} and {CLASS_MAPPING_PATH}.")
 
 # Preprocessing
 transform = transforms.Compose([

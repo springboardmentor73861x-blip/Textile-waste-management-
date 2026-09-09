@@ -8,17 +8,26 @@ from app.api.prediction import router as prediction_router
 from app.routes.analytics import router as analytics_router
 from app.routes.feedback import router as feedback_router
 from app.routes.sustainability import router as sustainability_router, recommendations_router
+from app.routes.health import router as health_router
+from app.middleware.logging_middleware import LoggingMiddleware
 from app.config.config import FRONTEND_ORIGINS
 
 from app.models import user, inventory, prediction_history
 
-# Create database tables
-Base.metadata.create_all(bind=engine)
+# Create database tables (gracefully catch if DB server is offline during module import)
+try:
+    Base.metadata.create_all(bind=engine)
+except Exception as err:
+    print(f"[DB Notice] Database table initialization deferred: {err}")
 
 app = FastAPI(
     title="Textile Waste Intelligence Platform API",
-    version="1.0.0"
+    version="1.0.0",
+    description="Production API for Textile Waste Classification, Inventory Tracking, Sustainability Analysis & Cloud Operations"
 )
+
+# Attach Logging Middleware
+app.add_middleware(LoggingMiddleware)
 
 # Enable CORS for React frontend integration - must be added before routes
 app.add_middleware(
@@ -30,6 +39,7 @@ app.add_middleware(
 )
 
 # Register routes
+app.include_router(health_router)
 app.include_router(user_router)
 app.include_router(auth_router)
 app.include_router(inventory_router)
@@ -44,5 +54,7 @@ app.include_router(recommendations_router)
 def root():
     return {
         "message": "Welcome to Textile Waste Intelligence Platform API",
-        "status": "running"
+        "status": "running",
+        "health_check": "/health",
+        "docs": "/docs"
     }

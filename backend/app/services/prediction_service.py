@@ -5,7 +5,7 @@ from app.services.waste_classification import get_waste_info
 from app.services.sustainability import calculate_score
 
 # Import the real model implementation
-from model.model_utils import predict_image
+from model.model_utils import predict_image, is_model_loaded
 
 class PredictionService:
     def __init__(self):

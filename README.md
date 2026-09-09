@@ -14,6 +14,13 @@ This solution is designed for textile manufacturers, recycling operators, sustai
 - review prediction history and analytics
 - manage user roles and access to system features
 
+## Documentation Guides
+
+- 📖 **[User Guide & Operational Manual](file:///c:/Users/Sanju%20b/OneDrive/Desktop/Infosys%20Project/docs/USER_GUIDE.md)**: How to use the dashboard, AI scanner, inventory, analytics, sustainability, reports, and user roles.
+- ⚙️ **[Setup & Installation Guide](file:///c:/Users/Sanju%20b/OneDrive/Desktop/Infosys%20Project/docs/SETUP_GUIDE.md)**: Local installation, Docker Compose setup, environment variables, database seed script, and PyTorch AI model setup.
+- 🔌 **[REST API Reference](file:///c:/Users/Sanju%20b/OneDrive/Desktop/Infosys%20Project/docs/API_DOCUMENTATION.md)**: Complete list of HTTP endpoints, request/response formats, auth, and system health endpoints.
+- ☁️ **[AWS & Azure Deployment Guide](file:///c:/Users/Sanju%20b/OneDrive/Desktop/Infosys%20Project/docs/DEPLOYMENT_GUIDE.md)**: Step-by-step production cloud deployment for AWS (EC2/ECS/RDS) and Azure (App Service / Container Instances).
+
 ## Key Features
 
 - AI-powered textile material prediction from uploaded images
