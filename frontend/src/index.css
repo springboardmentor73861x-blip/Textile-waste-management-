@@ -1,0 +1,44 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  min-width: 100%;
+  min-height: 100%;
+}
+
+html {
+  overflow-x: hidden;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+
+  background: #f8fafc;
+
+  font-family:
+    "Poppins",
+    "Roboto",
+    "Helvetica",
+    "Arial",
+    sans-serif;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+
+  max-width: none;
+
+  margin: 0;
+  padding: 0;
+
+  text-align: left;
+}

@@ -1,0 +1,52 @@
+{
+  "Cotton": {
+    "category": "Natural Fiber",
+    "recyclability": "High",
+    "recommendation": "Suitable for mechanical recycling into new yarn."
+  },
+  "Denim": {
+    "category": "Natural Fiber",
+    "recyclability": "High",
+    "recommendation": "Can be recycled into insulation and recycled denim products."
+  },
+  "Linen": {
+    "category": "Natural Fiber",
+    "recyclability": "High",
+    "recommendation": "Suitable for fiber recovery and textile reuse."
+  },
+  "Silk": {
+    "category": "Natural Fiber",
+    "recyclability": "Medium",
+    "recommendation": "Best reused for premium textile products."
+  },
+  "Polyester": {
+    "category": "Synthetic Fiber",
+    "recyclability": "High",
+    "recommendation": "Can be chemically recycled into polyester pellets."
+  },
+  "Nylon": {
+    "category": "Synthetic Fiber",
+    "recyclability": "High",
+    "recommendation": "Suitable for industrial recycling."
+  },
+  "Leather": {
+    "category": "Animal Based",
+    "recyclability": "Medium",
+    "recommendation": "Reuse preferred over recycling."
+  },
+  "Velvet": {
+    "category": "Fabric",
+    "recyclability": "Medium",
+    "recommendation": "Reuse recommended."
+  },
+  "Fleece": {
+    "category": "Synthetic Fiber",
+    "recyclability": "Medium",
+    "recommendation": "Can be processed into recycled fibers."
+  },
+  "Corduroy": {
+    "category": "Natural Fiber",
+    "recyclability": "High",
+    "recommendation": "Suitable for textile recycling."
+  }
+}
