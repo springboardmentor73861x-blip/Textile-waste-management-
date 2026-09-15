@@ -1,0 +1,366 @@
+.quick-action-layout {
+  min-height: 100vh;
+  display: flex;
+  background: #f5f8f6;
+}
+
+.quick-action-content {
+  flex: 1;
+  padding: 40px;
+  overflow-y: auto;
+}
+
+.quick-action-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.quick-action-header span {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #198754;
+}
+
+.quick-action-header h1 {
+  margin: 8px 0;
+  font-size: 32px;
+  color: #173c2b;
+}
+
+.quick-action-header p {
+  margin: 0;
+  max-width: 700px;
+  color: #66756d;
+  line-height: 1.6;
+}
+
+.quick-action-card {
+  max-width: 720px;
+  margin: 50px auto;
+  padding: 50px;
+  background: #ffffff;
+  border: 1px solid #e1ebe5;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(25, 80, 50, 0.06);
+}
+
+.quick-action-large-icon {
+  width: 80px;
+  height: 80px;
+  margin: 0 auto 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: #e7f6ed;
+  color: #198754;
+  font-size: 38px;
+}
+
+.quick-action-card h2 {
+  margin: 10px 0;
+  color: #173c2b;
+}
+
+.quick-action-card p {
+  max-width: 560px;
+  margin: 0 auto 30px;
+  color: #69776f;
+  line-height: 1.6;
+}
+
+.quick-action-primary-button,
+.quick-action-secondary-button {
+  border: none;
+  border-radius: 10px;
+  padding: 12px 22px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.quick-action-primary-button {
+  background: #198754;
+  color: white;
+}
+
+.quick-action-primary-button:hover {
+  background: #146c43;
+}
+
+.quick-action-secondary-button {
+  background: #e7f6ed;
+  color: #198754;
+}
+
+.goals-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+}
+
+.goal-card,
+.goal-form-card {
+  background: #ffffff;
+  border: 1px solid #e1ebe5;
+  border-radius: 18px;
+  padding: 25px;
+  box-shadow: 0 6px 20px rgba(25, 80, 50, 0.05);
+}
+
+.goal-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.goal-icon {
+  width: 45px;
+  height: 45px;
+  border-radius: 12px;
+  background: #e7f6ed;
+  color: #198754;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 23px;
+}
+
+.goal-status {
+  padding: 5px 10px;
+  border-radius: 20px;
+  background: #e7f6ed;
+  color: #198754;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.goal-card h2 {
+  margin: 20px 0 8px;
+  color: #173c2b;
+  font-size: 19px;
+}
+
+.goal-card p {
+  min-height: 55px;
+  color: #6b7770;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.goal-target {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 22px;
+}
+
+.goal-target span {
+  color: #7a847e;
+  font-size: 13px;
+}
+
+.goal-target strong {
+  color: #198754;
+  font-size: 24px;
+}
+
+.goal-progress {
+  height: 8px;
+  margin-top: 12px;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #e8eee9;
+}
+
+.goal-progress-fill {
+  height: 100%;
+  border-radius: 10px;
+  background: #198754;
+}
+
+.goal-form-card {
+  margin-bottom: 25px;
+}
+
+.goal-form-card h2 {
+  margin-top: 0;
+  color: #173c2b;
+}
+
+.goal-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.goal-form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.goal-form-field label {
+  font-size: 13px;
+  font-weight: 600;
+  color: #405048;
+}
+
+.goal-form-field input,
+.goal-form-field textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px 13px;
+  border: 1px solid #d7e2db;
+  border-radius: 9px;
+  outline: none;
+  font-size: 14px;
+}
+
+.goal-form-field textarea {
+  min-height: 90px;
+  resize: vertical;
+}
+
+.goal-form-field input:focus,
+.goal-form-field textarea:focus {
+  border-color: #198754;
+}
+
+.goal-description-field {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 1000px) {
+  .goals-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .quick-action-content {
+    padding: 25px;
+  }
+
+  .quick-action-header {
+    flex-direction: column;
+  }
+
+  .goal-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .goal-description-field {
+    grid-column: auto;
+  }
+}
+
+/* =========================================================
+   SUSTAINABILITY ANALYZE TEXTILE
+   New styles only - Manage Goals styles untouched
+   ========================================================= */
+
+.analyze-upload-area {
+  margin-top: 25px;
+}
+
+.analyze-file-input {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  margin: 0 auto 20px;
+  padding: 12px;
+  border: 1px dashed #b8cec1;
+  border-radius: 10px;
+  background: #f7faf8;
+  font-size: 14px;
+  color: #405048;
+  box-sizing: border-box;
+}
+
+.analyze-file-input:focus {
+  outline: none;
+  border-color: #198754;
+}
+
+.analyze-loading {
+  margin-top: 20px;
+  color: #198754;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.analyze-error {
+  margin-top: 20px;
+  padding: 12px 15px;
+  border-radius: 10px;
+  background: #fff1f1;
+  color: #c0392b;
+  font-size: 14px;
+}
+
+.analyze-result {
+  margin-top: 30px;
+  padding: 25px;
+  border: 1px solid #dce9e1;
+  border-radius: 15px;
+  background: #f8fbf9;
+  text-align: left;
+}
+
+.analyze-result h3 {
+  margin: 0 0 18px;
+  color: #173c2b;
+  font-size: 20px;
+}
+
+.analyze-result-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 10px 0;
+  border-bottom: 1px solid #e5eee8;
+  font-size: 14px;
+}
+
+.analyze-result-row:last-child {
+  border-bottom: none;
+}
+
+.analyze-result-row span {
+  color: #69776f;
+}
+
+.analyze-result-row strong {
+  color: #173c2b;
+}
+
+.analyze-score {
+  color: #198754 !important;
+  font-size: 18px;
+}
+
+.report-message {
+  margin-top: 20px;
+  padding: 12px 15px;
+  border-radius: 10px;
+  background: #e7f6ed;
+  color: #198754;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.report-error {
+  margin-top: 20px;
+  padding: 12px 15px;
+  border-radius: 10px;
+  background: #fff1f1;
+  color: #c0392b;
+  font-size: 14px;
+}

@@ -1,0 +1,583 @@
+/* =========================================================
+   MATERIAL CLASSIFICATION PAGE
+========================================================= */
+
+.tm-classification-layout {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  background: #f7f5fb;
+  color: #211b2d;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+========================================================= */
+
+.tm-classification-content {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 34px 40px;
+  overflow-x: hidden;
+
+  /* IMPORTANT:
+     Keeps all sections vertically stacked */
+  display: block;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.tm-classification-header {
+  width: 100%;
+  margin-bottom: 28px;
+}
+
+.tm-classification-label {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #7c3aed;
+}
+
+.tm-classification-header h1 {
+  margin: 6px 0 8px;
+  font-size: 32px;
+  line-height: 1.2;
+  font-weight: 800;
+  color: #211b2d;
+}
+
+.tm-classification-header p {
+  margin: 0;
+  color: #766f82;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   MAIN CLASSIFICATION CARD
+========================================================= */
+
+.tm-classification-card {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+
+  background: #ffffff;
+  border: 1px solid #e7e1ef;
+  border-radius: 18px;
+  padding: 28px;
+
+  box-shadow: 0 5px 18px rgba(55, 35, 80, 0.06);
+}
+
+.tm-classification-card-header {
+  width: 100%;
+}
+
+.tm-classification-card-header h2 {
+  margin: 0;
+  font-size: 20px;
+  line-height: 1.3;
+  color: #211b2d;
+}
+
+.tm-classification-card-header p {
+  margin: 7px 0 0;
+  color: #81798d;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   UPLOAD AREA
+========================================================= */
+
+.tm-classification-upload {
+  width: 100%;
+  box-sizing: border-box;
+
+  margin-top: 25px;
+  min-height: 300px;
+
+  border: 2px dashed #d9ccef;
+  border-radius: 16px;
+  background: #fbfaff;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+  padding: 30px;
+}
+
+.tm-upload-icon {
+  width: 62px;
+  height: 62px;
+  flex-shrink: 0;
+
+  border-radius: 16px;
+  background: #f0e9ff;
+  color: #7c3aed;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.tm-classification-upload h3 {
+  width: min(90%, 500px);
+  margin: 0;
+
+  font-size: 17px;
+  line-height: 1.4;
+  color: #30263c;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.tm-classification-upload p {
+  margin: 7px 0 18px;
+
+  color: #8a8294;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+
+/* =========================================================
+   SELECT IMAGE BUTTON
+========================================================= */
+
+.tm-select-file {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #7c3aed;
+  color: #ffffff;
+
+  padding: 11px 22px;
+  border-radius: 9px;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.tm-select-file:hover {
+  background: #6d28d9;
+  transform: translateY(-1px);
+}
+
+
+/* =========================================================
+   IMAGE PREVIEW
+========================================================= */
+
+.tm-classification-upload img {
+  display: block;
+
+  width: 140px;
+  height: 140px;
+
+  object-fit: cover;
+
+  border-radius: 12px;
+  border: 1px solid #e7e1ef;
+
+  margin-top: 18px;
+}
+
+
+/* =========================================================
+   CLASSIFY BUTTON
+========================================================= */
+
+.tm-classify-button {
+  margin-top: 14px;
+
+  border: none;
+  background: #ede9fe;
+  color: #6d28d9;
+
+  padding: 10px 20px;
+  border-radius: 9px;
+
+  font-size: 13px;
+  font-weight: 700;
+
+  cursor: pointer;
+
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.tm-classify-button:hover {
+  background: #ddd6fe;
+  transform: translateY(-1px);
+}
+
+.tm-classify-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+
+/* =========================================================
+   PREDICTION RESULT
+========================================================= */
+
+.tm-classification-result {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+
+  margin-top: 24px;
+
+  background: #ffffff;
+  border: 1px solid #e7e1ef;
+  border-radius: 18px;
+  padding: 28px;
+
+  box-shadow: 0 5px 18px rgba(55, 35, 80, 0.06);
+}
+
+
+/* =========================================================
+   RESULT HEADER
+========================================================= */
+
+.tm-result-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+  box-sizing: border-box;
+
+  gap: 20px;
+  padding-bottom: 22px;
+
+  border-bottom: 1px solid #eee9f3;
+}
+
+.tm-result-header > div:first-child {
+  min-width: 0;
+}
+
+.tm-result-header span {
+  display: block;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+
+  color: #8b5cf6;
+}
+
+.tm-result-header h2 {
+  margin: 6px 0 0;
+
+  font-size: 21px;
+  line-height: 1.3;
+
+  color: #211b2d;
+}
+
+
+/* =========================================================
+   CONFIDENCE
+========================================================= */
+
+.tm-confidence {
+  width: 74px;
+  height: 74px;
+  min-width: 74px;
+
+  border-radius: 50%;
+  background: #f0e9ff;
+  color: #6d28d9;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 20px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.tm-confidence small {
+  margin-top: 5px;
+
+  font-size: 9px;
+  font-weight: 600;
+
+  color: #81798d;
+}
+
+
+/* =========================================================
+   RESULT GRID
+========================================================= */
+
+.tm-result-grid {
+  width: 100%;
+  box-sizing: border-box;
+
+  margin-top: 24px;
+
+  display: grid;
+
+  /* 5 proper equal columns */
+  grid-template-columns: repeat(5, minmax(150px, 1fr));
+
+  gap: 14px;
+}
+
+.tm-result-item {
+  min-width: 0;
+  box-sizing: border-box;
+
+  background: #faf9fc;
+  border: 1px solid #eee9f3;
+  border-radius: 12px;
+
+  padding: 17px;
+}
+
+.tm-result-item span {
+  display: block;
+
+  color: #8a8294;
+  font-size: 11px;
+  line-height: 1.4;
+}
+
+.tm-result-item strong {
+  display: block;
+
+  margin-top: 8px;
+
+  color: #30263c;
+  font-size: 15px;
+  line-height: 1.4;
+
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.tm-result-item .tm-positive {
+  color: #16805b;
+}
+
+
+/* =========================================================
+   RESULT ACTIONS
+========================================================= */
+
+.tm-result-actions {
+  margin-top: 22px;
+
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.tm-secondary-button {
+  border: 1px solid #ddd6e8;
+  background: #ffffff;
+  color: #554a62;
+
+  padding: 10px 18px;
+  border-radius: 9px;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: background 0.2s ease;
+}
+
+.tm-secondary-button:hover {
+  background: #f7f4fa;
+}
+
+
+/* =========================================================
+   INFORMATION CARD
+========================================================= */
+
+.tm-classification-info {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+
+  margin-top: 24px;
+
+  background: #f0e9ff;
+  border: 1px solid #ddd1f8;
+  border-radius: 15px;
+
+  padding: 20px;
+}
+
+.tm-classification-info > div {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.tm-info-icon {
+  width: 38px;
+  height: 38px;
+  flex-shrink: 0;
+
+  border-radius: 10px;
+
+  background: #ffffff;
+  color: #7c3aed;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.tm-classification-info h3 {
+  margin: 0;
+
+  font-size: 14px;
+  line-height: 1.4;
+
+  color: #30263c;
+}
+
+.tm-classification-info p {
+  margin: 6px 0 0;
+
+  font-size: 12px;
+  line-height: 1.6;
+
+  color: #766f82;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.tm-classification-footer {
+  padding: 30px 0 10px;
+
+  text-align: center;
+
+  color: #9a92a4;
+  font-size: 11px;
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 1200px) {
+
+  .tm-classification-content {
+    padding: 30px;
+  }
+
+  .tm-result-grid {
+    grid-template-columns: repeat(3, minmax(150px, 1fr));
+  }
+}
+
+
+/* =========================================================
+   SMALL LAPTOP / TABLET
+========================================================= */
+
+@media (max-width: 900px) {
+
+  .tm-classification-content {
+    padding: 25px;
+  }
+
+  .tm-classification-header h1 {
+    font-size: 28px;
+  }
+
+  .tm-result-grid {
+    grid-template-columns: repeat(2, minmax(150px, 1fr));
+  }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 600px) {
+
+  .tm-classification-content {
+    padding: 20px 16px;
+  }
+
+  .tm-classification-header h1 {
+    font-size: 25px;
+  }
+
+  .tm-classification-card,
+  .tm-classification-result {
+    padding: 20px;
+  }
+
+  .tm-classification-upload {
+    padding: 22px;
+  }
+
+  .tm-result-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .tm-confidence {
+    align-self: flex-start;
+  }
+
+  .tm-result-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .tm-result-actions {
+    justify-content: stretch;
+  }
+
+  .tm-secondary-button {
+    width: 100%;
+  }
+
+  .tm-classification-info > div {
+    align-items: flex-start;
+  }
+}

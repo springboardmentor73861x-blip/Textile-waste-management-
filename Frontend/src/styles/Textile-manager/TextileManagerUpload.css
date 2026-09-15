@@ -1,0 +1,514 @@
+/* =========================================================
+   TEXTILE MANAGER UPLOAD
+========================================================= */
+
+.textile-manager-upload-layout {
+  min-height: 100vh;
+  display: flex;
+  background: #f7f7fb;
+  color: #211a35;
+}
+
+.textile-manager-upload-content {
+  flex: 1;
+  min-width: 0;
+  padding: 32px 38px;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.textile-manager-upload-header {
+  margin-bottom: 24px;
+}
+
+.textile-manager-upload-label {
+  display: inline-block;
+  margin-bottom: 8px;
+  color: #7c3aed;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.textile-manager-upload-header h1 {
+  margin: 0;
+  color: #17122b;
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.textile-manager-upload-header p {
+  max-width: 700px;
+  margin: 8px 0 0;
+  color: #777184;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   PIPELINE
+========================================================= */
+
+.textile-manager-upload-pipeline {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+  padding: 16px 18px;
+  border: 1px solid #e8e2f4;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 5px 20px rgba(72, 52, 128, 0.05);
+}
+
+.textile-manager-pipeline-step {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+}
+
+.textile-manager-pipeline-step > span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 31px;
+  height: 31px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: #f0edf5;
+  color: #8b8797;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.textile-manager-pipeline-step.active > span {
+  background: #7c3aed;
+  color: #ffffff;
+}
+
+.textile-manager-pipeline-step strong {
+  display: block;
+  color: #353044;
+  font-size: 12px;
+}
+
+.textile-manager-pipeline-step small {
+  display: block;
+  margin-top: 2px;
+  color: #9993a4;
+  font-size: 10px;
+}
+
+.textile-manager-pipeline-line {
+  flex: 1;
+  height: 1px;
+  min-width: 20px;
+  background: #e4dfeb;
+}
+
+
+/* =========================================================
+   UPLOAD CARD
+========================================================= */
+
+.textile-manager-upload-card {
+  padding: 25px;
+  border: 1px solid #e8e2f1;
+  border-radius: 18px;
+  background: #ffffff;
+  box-shadow: 0 6px 24px rgba(57, 41, 99, 0.045);
+}
+
+.textile-manager-upload-card-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 15px;
+  margin-bottom: 22px;
+}
+
+.textile-manager-upload-card-header span {
+  display: block;
+  margin-bottom: 5px;
+  color: #8b5cf6;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.textile-manager-upload-card-header h2 {
+  margin: 0;
+  color: #211a35;
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.textile-manager-upload-card-header p {
+  margin: 5px 0 0;
+  color: #858091;
+  font-size: 12px;
+}
+
+.textile-manager-upload-card-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 11px;
+  background: #f3efff;
+  color: #7c3aed;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+
+/* =========================================================
+   UPLOAD AREA
+========================================================= */
+
+.textile-manager-upload-area {
+  min-height: 350px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #c4b5fd;
+  border-radius: 16px;
+  background: #faf8ff;
+  cursor: pointer;
+  text-align: center;
+  transition: 0.2s ease;
+}
+
+.textile-manager-upload-area:hover {
+  border-color: #8b5cf6;
+  background: #f5f3ff;
+}
+
+.textile-manager-upload-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 60px;
+  height: 60px;
+  margin-bottom: 15px;
+  border-radius: 15px;
+  background: #ede9fe;
+  color: #7c3aed;
+  font-size: 27px;
+  font-weight: 800;
+}
+
+.textile-manager-upload-area h3 {
+  margin: 0;
+  color: #302946;
+  font-size: 17px;
+  font-weight: 800;
+}
+
+.textile-manager-upload-area p {
+  margin: 7px 0 3px;
+  color: #777184;
+  font-size: 13px;
+}
+
+.textile-manager-upload-area > span {
+  color: #7c3aed;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+
+/* =========================================================
+   PREVIEW
+========================================================= */
+
+.textile-manager-preview-area {
+  overflow: hidden;
+  border: 1px solid #e6e1f0;
+  border-radius: 16px;
+  background: #faf9fc;
+}
+
+.textile-manager-preview-wrapper {
+  width: 100%;
+  height: 350px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f4f2f7;
+}
+
+.textile-manager-image-preview {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.textile-manager-preview-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 14px 16px;
+}
+
+.textile-manager-preview-info strong {
+  display: block;
+  max-width: 500px;
+  overflow: hidden;
+  color: #312b3e;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.textile-manager-preview-info span {
+  display: block;
+  margin-top: 3px;
+  color: #9993a4;
+  font-size: 10px;
+}
+
+.textile-manager-remove-button {
+  border: none;
+  background: transparent;
+  color: #dc2626;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   ACTION
+========================================================= */
+
+.textile-manager-upload-action {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+  margin-top: 20px;
+  padding: 20px 22px;
+  border: 1px solid #ddd6fe;
+  border-radius: 16px;
+  background: #f5f3ff;
+}
+
+.textile-manager-upload-action strong {
+  color: #5b21b6;
+  font-size: 13px;
+}
+
+.textile-manager-upload-action p {
+  margin: 4px 0 0;
+  color: #777184;
+  font-size: 11px;
+}
+
+.textile-manager-upload-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.textile-manager-cancel-button,
+.textile-manager-upload-button {
+  border-radius: 9px;
+  padding: 11px 17px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.textile-manager-cancel-button {
+  border: 1px solid #d9d3e5;
+  background: #ffffff;
+  color: #655f70;
+}
+
+.textile-manager-cancel-button:hover:not(:disabled) {
+  background: #faf9fc;
+}
+
+.textile-manager-upload-button {
+  border: 1px solid #7c3aed;
+  background: #7c3aed;
+  color: #ffffff;
+  box-shadow: 0 5px 14px rgba(124, 58, 237, 0.2);
+}
+
+.textile-manager-upload-button:hover:not(:disabled) {
+  background: #6d28d9;
+}
+
+.textile-manager-upload-button:disabled,
+.textile-manager-cancel-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
+/* =========================================================
+   MESSAGE
+========================================================= */
+
+.textile-manager-upload-message {
+  margin-top: 16px;
+  padding: 12px 15px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.textile-manager-upload-message.success {
+  border: 1px solid #bbf7d0;
+  background: #f0fdf4;
+  color: #15803d;
+}
+
+.textile-manager-upload-message.error {
+  border: 1px solid #fecaca;
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+
+/* =========================================================
+   INFO
+========================================================= */
+
+.textile-manager-upload-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  margin-top: 20px;
+  padding: 20px;
+  border: 1px solid #e8e2f4;
+  border-radius: 16px;
+  background: #ffffff;
+}
+
+.textile-manager-upload-info-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  flex-shrink: 0;
+  border-radius: 12px;
+  background: #ede9fe;
+  color: #7c3aed;
+  font-size: 18px;
+}
+
+.textile-manager-upload-info h3 {
+  margin: 0;
+  color: #302946;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.textile-manager-upload-info p {
+  margin: 6px 0 0;
+  color: #777184;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.textile-manager-upload-footer {
+  padding: 25px 0 5px;
+  color: #aaa5b2;
+  text-align: center;
+  font-size: 10px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1000px) {
+  .textile-manager-upload-content {
+    padding: 26px;
+  }
+
+  .textile-manager-upload-pipeline {
+    overflow-x: auto;
+  }
+
+  .textile-manager-pipeline-step {
+    min-width: 145px;
+  }
+
+  .textile-manager-pipeline-line {
+    min-width: 25px;
+  }
+}
+
+@media (max-width: 700px) {
+  .textile-manager-upload-content {
+    padding: 18px;
+  }
+
+  .textile-manager-upload-header h1 {
+    font-size: 26px;
+  }
+
+  .textile-manager-upload-card {
+    padding: 18px;
+  }
+
+  .textile-manager-upload-action {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .textile-manager-upload-actions {
+    width: 100%;
+  }
+
+  .textile-manager-cancel-button,
+  .textile-manager-upload-button {
+    flex: 1;
+  }
+}
+
+@media (max-width: 550px) {
+  .textile-manager-upload-pipeline {
+    align-items: flex-start;
+  }
+
+  .textile-manager-upload-action {
+    gap: 15px;
+  }
+
+  .textile-manager-upload-actions {
+    flex-direction: column;
+  }
+
+  .textile-manager-cancel-button,
+  .textile-manager-upload-button {
+    width: 100%;
+  }
+
+  .textile-manager-preview-info {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

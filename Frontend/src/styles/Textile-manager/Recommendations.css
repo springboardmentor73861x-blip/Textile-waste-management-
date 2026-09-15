@@ -1,0 +1,516 @@
+/* =========================================================
+   MAIN LAYOUT
+========================================================= */
+
+.tm-recommendations-layout {
+  min-height: 100vh;
+  display: flex;
+  background: #f7f5fb;
+  color: #211b2d;
+}
+
+.tm-recommendations-content {
+  flex: 1;
+  min-width: 0;
+  padding: 34px 40px;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.tm-recommendations-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 30px;
+  margin-bottom: 28px;
+}
+
+.tm-recommendations-label {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.5px;
+  color: #7c3aed;
+}
+
+.tm-recommendations-header h1 {
+  margin: 7px 0 8px;
+  font-size: 32px;
+  font-weight: 800;
+  color: #211b2d;
+}
+
+.tm-recommendations-header p {
+  margin: 0;
+  max-width: 650px;
+  color: #766f82;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   SUMMARY
+========================================================= */
+
+.tm-recommendations-summary {
+  min-width: 230px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 16px 18px;
+  background: #ffffff;
+  border: 1px solid #e8e2f0;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(40, 24, 64, 0.05);
+}
+
+.tm-summary-number {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: #f1eaff;
+  color: #7c3aed;
+  font-size: 22px;
+  font-weight: 800;
+}
+
+.tm-recommendations-summary span {
+  display: block;
+  font-size: 12px;
+  color: #8a8295;
+}
+
+.tm-recommendations-summary strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 13px;
+  color: #211b2d;
+}
+
+
+/* =========================================================
+   OVERVIEW CARDS
+========================================================= */
+
+.tm-recommendation-overview {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.tm-overview-card {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 19px;
+  background: #ffffff;
+  border: 1px solid #e8e2f0;
+  border-radius: 15px;
+  box-shadow: 0 4px 16px rgba(40, 24, 64, 0.04);
+}
+
+.tm-overview-icon {
+  width: 45px;
+  height: 45px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: #f1eaff;
+  color: #7c3aed;
+  font-size: 21px;
+}
+
+.tm-overview-card span {
+  display: block;
+  font-size: 12px;
+  color: #81788e;
+}
+
+.tm-overview-card strong {
+  display: block;
+  margin-top: 2px;
+  font-size: 21px;
+  color: #211b2d;
+}
+
+.tm-overview-card small {
+  display: block;
+  margin-top: 2px;
+  font-size: 10px;
+  color: #aaa2b2;
+}
+
+
+/* =========================================================
+   AI INSIGHT
+========================================================= */
+
+.tm-ai-insight {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 26px;
+  padding: 20px 22px;
+  background: #f0eaff;
+  border: 1px solid #ddd0ff;
+  border-radius: 16px;
+}
+
+.tm-ai-insight-icon {
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: #7c3aed;
+  color: #ffffff;
+  font-size: 20px;
+}
+
+.tm-ai-insight span {
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.3px;
+  color: #7c3aed;
+}
+
+.tm-ai-insight h2 {
+  margin: 5px 0 5px;
+  font-size: 17px;
+  font-weight: 800;
+  color: #211b2d;
+}
+
+.tm-ai-insight p {
+  margin: 0;
+  color: #6f667c;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+
+/* =========================================================
+   RECOMMENDATION SECTION
+========================================================= */
+
+.tm-recommendation-section {
+  background: #ffffff;
+  border: 1px solid #e8e2f0;
+  border-radius: 18px;
+  box-shadow: 0 4px 18px rgba(40, 24, 64, 0.04);
+  overflow: hidden;
+}
+
+.tm-recommendation-section-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 24px;
+  border-bottom: 1px solid #eee9f3;
+}
+
+.tm-recommendation-section-header h2 {
+  margin: 0;
+  font-size: 19px;
+  font-weight: 800;
+  color: #211b2d;
+}
+
+.tm-recommendation-section-header p {
+  margin: 5px 0 0;
+  color: #81788e;
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   FILTER
+========================================================= */
+
+.tm-category-filter {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.tm-category-filter button {
+  border: 1px solid #e4deeb;
+  background: #ffffff;
+  color: #71687c;
+  border-radius: 9px;
+  padding: 8px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.tm-category-filter button:hover {
+  border-color: #b9a2e8;
+  color: #7c3aed;
+}
+
+.tm-category-filter button.active {
+  background: #7c3aed;
+  border-color: #7c3aed;
+  color: #ffffff;
+}
+
+
+/* =========================================================
+   RECOMMENDATION LIST
+========================================================= */
+
+.tm-recommendation-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  padding: 22px;
+}
+
+.tm-recommendation-card {
+  border: 1px solid #ebe6f0;
+  border-radius: 15px;
+  padding: 19px;
+  background: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.tm-recommendation-card:hover {
+  border-color: #d8c9f5;
+  box-shadow: 0 8px 22px rgba(76, 48, 116, 0.08);
+  transform: translateY(-2px);
+}
+
+
+/* =========================================================
+   CARD TOP
+========================================================= */
+
+.tm-recommendation-card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+}
+
+.tm-recommendation-material {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+}
+
+.tm-material-icon {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 11px;
+  background: #f1eaff;
+  color: #7c3aed;
+  font-weight: 800;
+}
+
+.tm-recommendation-material span {
+  display: block;
+  font-size: 13px;
+  color: #211b2d;
+  font-weight: 700;
+}
+
+.tm-recommendation-material strong {
+  display: block;
+  margin-top: 3px;
+  font-size: 10px;
+  color: #8d8496;
+  font-weight: 500;
+}
+
+
+/* =========================================================
+   PRIORITY
+========================================================= */
+
+.tm-priority {
+  padding: 6px 9px;
+  border-radius: 999px;
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.tm-priority.high {
+  background: #fff0f0;
+  color: #c0392b;
+}
+
+.tm-priority.medium {
+  background: #fff7e8;
+  color: #a66a00;
+}
+
+
+/* =========================================================
+   BODY
+========================================================= */
+
+.tm-recommendation-body {
+  margin-top: 18px;
+}
+
+.tm-recommendation-body h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 800;
+  color: #211b2d;
+}
+
+.tm-recommendation-body p {
+  margin: 8px 0 0;
+  font-size: 12px;
+  line-height: 1.7;
+  color: #766d80;
+}
+
+
+/* =========================================================
+   DETAILS
+========================================================= */
+
+.tm-recommendation-details {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 18px;
+  padding-top: 15px;
+  border-top: 1px solid #eeeaf2;
+}
+
+.tm-recommendation-details span {
+  display: block;
+  font-size: 9px;
+  color: #aaa1b0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.tm-recommendation-details strong {
+  display: block;
+  margin-top: 4px;
+  font-size: 11px;
+  color: #42394c;
+}
+
+.tm-recommendation-details .tm-impact {
+  color: #7c3aed;
+}
+
+.tm-recommendation-details .tm-status {
+  color: #5f8d32;
+}
+
+
+/* =========================================================
+   ACTION
+========================================================= */
+
+.tm-recommendation-actions {
+  margin-top: 17px;
+}
+
+.tm-action-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  border: none;
+  border-radius: 9px;
+  padding: 9px 13px;
+  background: #7c3aed;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.tm-action-button:hover {
+  background: #6d28d9;
+}
+
+.tm-action-button span {
+  font-size: 14px;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.tm-recommendations-footer {
+  padding: 26px 0 10px;
+  text-align: center;
+  color: #aaa1b0;
+  font-size: 10px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1100px) {
+  .tm-recommendation-overview {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .tm-recommendation-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 800px) {
+  .tm-recommendations-content {
+    padding: 25px 20px;
+  }
+
+  .tm-recommendations-header {
+    flex-direction: column;
+  }
+
+  .tm-recommendations-summary {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .tm-recommendation-section-header {
+    flex-direction: column;
+  }
+
+  .tm-category-filter {
+    width: 100%;
+  }
+}
+
+@media (max-width: 560px) {
+  .tm-recommendation-overview {
+    grid-template-columns: 1fr;
+  }
+
+  .tm-recommendation-details {
+    grid-template-columns: 1fr;
+  }
+}

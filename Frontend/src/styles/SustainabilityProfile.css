@@ -1,0 +1,531 @@
+/* =========================================================
+   SUSTAINABILITY MANAGER PROFILE
+   GREEN THEME
+   ========================================================= */
+
+.sustainability-profile-layout {
+  min-height: 100vh;
+  display: flex;
+  background: #f4f8f6;
+  color: #172033;
+}
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+
+.sustainability-profile-content {
+  flex: 1;
+  min-width: 0;
+  padding: 32px 36px 40px;
+  background: #f4f8f6;
+  overflow-x: hidden;
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.sustainability-profile-header {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto 28px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.sustainability-profile-label {
+  display: block;
+  margin-bottom: 6px;
+  color: #15803d;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.sustainability-profile-header h1 {
+  margin: 0;
+  color: #172033;
+  font-size: 30px;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.sustainability-profile-header p {
+  margin: 8px 0 0;
+  color: #667085;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* =========================================================
+   BACK TO DASHBOARD BUTTON
+   ========================================================= */
+
+.sustainability-profile-back {
+  flex-shrink: 0;
+  margin-top: 4px;
+  padding: 9px 15px;
+  border: 1px solid #b7dfc4;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #15803d;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.sustainability-profile-back:hover {
+  background: #f0fdf4;
+  border-color: #86efac;
+  transform: translateY(-1px);
+}
+
+/* =========================================================
+   ERROR
+   ========================================================= */
+
+.sustainability-profile-error {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto 18px;
+  padding: 12px 15px;
+  border: 1px solid #fecaca;
+  border-radius: 8px;
+  background: #fff5f5;
+  color: #b42318;
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   PROFILE CARD
+   ========================================================= */
+
+.sustainability-profile-card {
+  width: 100%;
+  max-width: 850px;
+  margin: 0 auto 30px;
+  padding: 28px;
+  border: 1px solid #d8eadf;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 4px 14px rgba(16, 24, 40, 0.05);
+}
+
+/* =========================================================
+   PROFILE CARD HEADER
+   ========================================================= */
+
+.sustainability-profile-card-header {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+}
+
+.sustainability-profile-avatar {
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid #86efac;
+  border-radius: 50%;
+  background: #dcfce7;
+  color: #15803d;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.sustainability-profile-card-header h2 {
+  margin: 0;
+  color: #172033;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.sustainability-profile-card-header p {
+  margin: 5px 0 0;
+  color: #16a34a;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* =========================================================
+   PROFILE INFORMATION
+   ========================================================= */
+
+.sustainability-profile-information {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 25px;
+  padding-top: 25px;
+  border-top: 1px solid #e5eee8;
+}
+
+/* =========================================================
+   PROFILE FIELD
+   ========================================================= */
+
+.sustainability-profile-field {
+  min-width: 0;
+  padding: 13px 15px;
+  border: 1px solid #e2eee6;
+  border-radius: 8px;
+  background: #f8fcf9;
+}
+
+.sustainability-profile-field span {
+  display: block;
+  margin-bottom: 6px;
+  color: #6b7f72;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.sustainability-profile-field strong {
+  display: block;
+  overflow-wrap: anywhere;
+  color: #172033;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 1.45;
+}
+
+/* =========================================================
+   ACTIVE ACCESS
+   ========================================================= */
+
+.sustainability-profile-field .access-active {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 4px 9px;
+  border: 1px solid #bbf7d0;
+  border-radius: 999px;
+  background: #f0fdf4;
+  color: #15803d;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+/* =========================================================
+   PROFILE SECTIONS
+   ========================================================= */
+
+.sustainability-profile-section {
+  width: 100%;
+  max-width: 1180px;
+  margin: 0 auto 30px;
+}
+
+.sustainability-profile-section-heading {
+  margin-bottom: 16px;
+}
+
+.sustainability-profile-section-heading > span {
+  display: block;
+  margin-bottom: 5px;
+  color: #15803d;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.sustainability-profile-section-heading h2 {
+  margin: 0;
+  color: #172033;
+  font-size: 19px;
+  font-weight: 700;
+  line-height: 1.35;
+}
+
+.sustainability-profile-section-heading p {
+  max-width: 700px;
+  margin: 6px 0 0;
+  color: #667085;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+/* =========================================================
+   RESPONSIBILITIES
+   ========================================================= */
+
+.sustainability-responsibilities-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 15px;
+}
+
+.sustainability-responsibility-card {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid #d8eadf;
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0 3px 10px rgba(16, 24, 40, 0.04);
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.sustainability-responsibility-card:hover {
+  transform: translateY(-2px);
+  border-color: #b7dfc4;
+  box-shadow: 0 6px 16px rgba(16, 24, 40, 0.07);
+}
+
+.sustainability-responsibility-icon {
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 13px;
+  border: 1px solid #bbf7d0;
+  border-radius: 9px;
+  background: #f0fdf4;
+  color: #15803d;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.sustainability-responsibility-card h3 {
+  margin: 0 0 7px;
+  color: #172033;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.sustainability-responsibility-card p {
+  margin: 0;
+  color: #667085;
+  font-size: 11px;
+  line-height: 1.6;
+}
+
+/* =========================================================
+   SECURITY SECTION
+   ========================================================= */
+
+.sustainability-security-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 19px 20px;
+  border: 1px solid #d8eadf;
+  border-radius: 10px;
+  background: #ffffff;
+  box-shadow: 0 3px 10px rgba(16, 24, 40, 0.04);
+}
+
+.sustainability-security-card > div {
+  min-width: 0;
+}
+
+.sustainability-security-card strong {
+  display: block;
+  margin-bottom: 5px;
+  color: #172033;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.sustainability-security-card p {
+  margin: 0;
+  color: #667085;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.sustainability-security-card button {
+  flex-shrink: 0;
+  padding: 9px 14px;
+  border: 1px solid #15803d;
+  border-radius: 7px;
+  background: #15803d;
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.sustainability-security-card button:hover {
+  background: #166534;
+  transform: translateY(-1px);
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+
+.sustainability-profile-footer {
+  width: 100%;
+  max-width: 1180px;
+  margin: 38px auto 0;
+  padding-top: 18px;
+  border-top: 1px solid #dce9e1;
+  color: #7a8a80;
+  font-size: 10px;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   LARGE SCREENS
+   ========================================================= */
+
+@media (min-width: 1400px) {
+  .sustainability-profile-content {
+    padding: 38px 48px 48px;
+  }
+
+  .sustainability-profile-header h1 {
+    font-size: 32px;
+  }
+
+  .sustainability-profile-card {
+    max-width: 900px;
+  }
+}
+
+/* =========================================================
+   TABLET
+   ========================================================= */
+
+@media (max-width: 1000px) {
+  .sustainability-profile-content {
+    padding: 28px 24px 36px;
+  }
+
+  .sustainability-profile-header {
+    max-width: 100%;
+  }
+
+  .sustainability-profile-section {
+    max-width: 100%;
+  }
+
+  .sustainability-profile-footer {
+    max-width: 100%;
+  }
+
+  .sustainability-responsibilities-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* =========================================================
+   SMALL TABLET / MOBILE
+   ========================================================= */
+
+@media (max-width: 700px) {
+  .sustainability-profile-content {
+    padding: 22px 16px 30px;
+  }
+
+  .sustainability-profile-header {
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 22px;
+  }
+
+  .sustainability-profile-header h1 {
+    font-size: 24px;
+  }
+
+  .sustainability-profile-header p {
+    font-size: 12px;
+  }
+
+  .sustainability-profile-back {
+    margin-top: 0;
+  }
+
+  .sustainability-profile-card {
+    max-width: 100%;
+    padding: 20px;
+    margin-bottom: 26px;
+  }
+
+  .sustainability-profile-card-header {
+    gap: 13px;
+  }
+
+  .sustainability-profile-avatar {
+    width: 56px;
+    height: 56px;
+    font-size: 21px;
+  }
+
+  .sustainability-profile-card-header h2 {
+    font-size: 17px;
+  }
+
+  .sustainability-profile-information {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    margin-top: 20px;
+    padding-top: 20px;
+  }
+
+  .sustainability-responsibilities-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sustainability-profile-section-heading h2 {
+    font-size: 17px;
+  }
+
+  .sustainability-security-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .sustainability-security-card button {
+    width: 100%;
+  }
+}
+
+/* =========================================================
+   VERY SMALL MOBILE
+   ========================================================= */
+
+@media (max-width: 430px) {
+  .sustainability-profile-content {
+    padding: 18px 12px 25px;
+  }
+
+  .sustainability-profile-header h1 {
+    font-size: 21px;
+  }
+
+  .sustainability-profile-card {
+    padding: 16px;
+  }
+
+  .sustainability-profile-field {
+    padding: 12px;
+  }
+
+  .sustainability-responsibility-card {
+    padding: 16px;
+  }
+}

@@ -1,0 +1,101 @@
+.admin-inventory-page {
+  min-height: 100vh;
+  padding: 35px;
+  background: linear-gradient(135deg, #eef5ff, #f8fbff);
+}
+
+.admin-inventory-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.admin-inventory-header h1 {
+  margin: 0;
+  color: #111827;
+  font-size: 30px;
+}
+
+.admin-inventory-header p {
+  margin-top: 6px;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.admin-inventory-count {
+  background: white;
+  padding: 12px 18px;
+  border-radius: 10px;
+  color: #2563eb;
+  font-weight: 600;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.admin-inventory-table-container {
+  width: 100%;
+  overflow-x: auto;
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+}
+
+.admin-inventory-table {
+  width: 100%;
+  min-width: 1250px;
+  border-collapse: collapse;
+}
+
+.admin-inventory-table th {
+  background: #1e3a8a;
+  color: white;
+  padding: 14px 12px;
+  font-size: 13px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.admin-inventory-table td {
+  padding: 13px 12px;
+  text-align: center;
+  border-bottom: 1px solid #e5e7eb;
+  font-size: 13px;
+  color: #334155;
+  white-space: nowrap;
+}
+
+.admin-inventory-table tbody tr:hover {
+  background: #f3f6ff;
+}
+
+.admin-status-badge {
+  display: inline-block;
+  padding: 5px 10px;
+  border-radius: 20px;
+  background: #dcfce7;
+  color: #15803d;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.delete-btn {
+  border: none;
+  padding: 7px 12px;
+  border-radius: 7px;
+  background: #ef4444;
+  color: white;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.delete-btn:hover {
+  background: #dc2626;
+}
+
+.inventory-loading,
+.empty-admin-inventory {
+  padding: 30px;
+  text-align: center;
+  color: #64748b;
+}

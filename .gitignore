@@ -1,0 +1,52 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+venv311/
+.env/
+.venv/
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Frontend dependencies
+Frontend/node_modules/
+node_modules/
+
+# Frontend build
+Frontend/dist/
+dist/
+
+# Uploaded/generated files
+Backend/app/uploads/*
+!Backend/app/uploads/.gitkeep
+
+# Python / ML caches
+.keras/
+.h5
+*.tmp
+*.log
+
+# Jupyter
+.ipynb_checkpoints/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+
+# Docker local data
+postgres_data/
+postgres_data_v18/
+
+# Dataset
+Dataset/

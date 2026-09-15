@@ -1,0 +1,428 @@
+/* =========================================================
+   TEXTILE MANAGER SIDEBAR
+========================================================= */
+
+.textile-manager-sidebar {
+  width: 255px;
+  min-width: 255px;
+  height: 100vh;
+  min-height: 100vh;
+
+  background: linear-gradient(
+    180deg,
+    #24136b 0%,
+    #30177d 45%,
+    #21105f 100%
+  );
+
+  color: #ffffff;
+
+  display: flex;
+  flex-direction: column;
+
+  position: sticky;
+  top: 0;
+
+  overflow-y: auto;
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.textile-manager-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  padding: 25px 22px 22px;
+}
+
+.textile-manager-logo-icon {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+
+  color: #ffffff;
+
+  font-size: 25px;
+  font-weight: 700;
+}
+
+.textile-manager-logo-text h2 {
+  margin: 0;
+
+  color: #ffffff;
+
+  font-size: 17px;
+  line-height: 1.2;
+  font-weight: 700;
+}
+
+.textile-manager-logo-text p {
+  margin: 5px 0 0;
+
+  color: rgba(255, 255, 255, 0.82);
+
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   TEXTILE MANAGER BANNER
+========================================================= */
+
+.textile-manager-banner {
+  height: 164px;
+
+  padding: 92px 28px 18px;
+
+  box-sizing: border-box;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(22, 10, 70, 0.05),
+      rgba(17, 7, 55, 0.92)
+    ),
+    url("https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=800&q=80");
+
+  background-size: cover;
+  background-position: center;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.textile-manager-banner-title {
+  color: #ffffff;
+
+  font-size: 20px;
+  font-weight: 700;
+}
+
+.textile-manager-banner-subtitle {
+  margin-top: 5px;
+
+  color: rgba(255, 255, 255, 0.9);
+
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   MENU
+========================================================= */
+
+.textile-manager-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  padding: 14px 13px;
+}
+
+.textile-manager-menu-item {
+  min-height: 44px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 14px;
+
+  padding: 0 16px;
+
+  border-radius: 9px;
+
+  text-decoration: none;
+
+  color: rgba(255, 255, 255, 0.9);
+
+  font-size: 14px;
+  font-weight: 500;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.tm-menu-icon {
+  width: 23px;
+  min-width: 23px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #ffffff;
+
+  font-size: 21px;
+}
+
+.textile-manager-menu-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+
+  color: #ffffff;
+
+  transform: translateX(2px);
+}
+
+.textile-manager-menu-item.active {
+  background: linear-gradient(
+    90deg,
+    #7040d4,
+    #6940c7
+  );
+
+  color: #ffffff;
+
+  box-shadow:
+    0 6px 16px rgba(0, 0, 0, 0.18);
+}
+
+.textile-manager-menu-item.active .tm-menu-icon {
+  color: #ffffff;
+}
+
+
+/* =========================================================
+   BOTTOM SECTION
+   Profile + Back to Admin
+========================================================= */
+
+.textile-manager-bottom-section {
+  margin-top: auto;
+
+  padding-top: 10px;
+
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+
+/* =========================================================
+   PROFILE
+========================================================= */
+
+.textile-manager-profile-section {
+  padding: 13px;
+}
+
+.textile-manager-profile-button {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 10px;
+
+  border: 1px solid rgba(255, 255, 255, 0.25);
+
+  border-radius: 14px;
+
+  background: rgba(17, 8, 65, 0.32);
+
+  color: #ffffff;
+
+  cursor: pointer;
+
+  text-align: left;
+
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.textile-manager-profile-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+
+  border-color: rgba(255, 255, 255, 0.4);
+}
+
+.textile-manager-avatar {
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #7040d4;
+
+  color: #ffffff;
+
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.textile-manager-profile-text {
+  min-width: 0;
+
+  display: flex;
+  flex-direction: column;
+
+  gap: 3px;
+
+  flex: 1;
+}
+
+.textile-manager-name {
+  color: #ffffff;
+
+  font-size: 13px;
+  font-weight: 600;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.textile-manager-role {
+  color: rgba(255, 255, 255, 0.68);
+
+  font-size: 10px;
+}
+
+.textile-manager-profile-arrow {
+  color: rgba(255, 255, 255, 0.8);
+
+  font-size: 18px;
+}
+
+
+/* =========================================================
+   BACK TO ADMIN DASHBOARD
+========================================================= */
+
+.textile-manager-back-section {
+  padding: 0 13px 15px;
+}
+
+.textile-manager-back-button {
+  width: 100%;
+
+  min-height: 42px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 0 12px;
+
+  border: 1px solid rgba(255, 255, 255, 0.18);
+
+  border-radius: 10px;
+
+  background: rgba(255, 255, 255, 0.06);
+
+  color: rgba(255, 255, 255, 0.88);
+
+  cursor: pointer;
+
+  font-size: 12px;
+  font-weight: 500;
+
+  text-align: left;
+
+  transition:
+    background 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.textile-manager-back-button:hover {
+  background: rgba(255, 255, 255, 0.12);
+
+  color: #ffffff;
+
+  border-color: rgba(255, 255, 255, 0.3);
+
+  transform: translateX(2px);
+}
+
+.textile-manager-back-icon {
+  width: 22px;
+  min-width: 22px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 18px;
+}
+
+
+/* =========================================================
+   SCROLLBAR
+========================================================= */
+
+.textile-manager-sidebar::-webkit-scrollbar {
+  width: 5px;
+}
+
+.textile-manager-sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.textile-manager-sidebar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.22);
+
+  border-radius: 10px;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1000px) {
+  .textile-manager-sidebar {
+    width: 225px;
+    min-width: 225px;
+  }
+
+  .textile-manager-menu-item {
+    padding: 0 12px;
+    gap: 10px;
+  }
+}
+
+
+@media (max-width: 700px) {
+  .textile-manager-sidebar {
+    width: 210px;
+    min-width: 210px;
+  }
+
+  .textile-manager-banner {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .textile-manager-menu {
+    padding-left: 9px;
+    padding-right: 9px;
+  }
+
+  .textile-manager-menu-item {
+    font-size: 13px;
+  }
+}

@@ -1,0 +1,35 @@
+.inventory-page{
+    padding:40px;
+    background:#f5f7fb;
+    min-height:100vh;
+}
+
+.inventory-page h1{
+    color:#1e3a8a;
+    margin-bottom:25px;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    background:white;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
+}
+
+th{
+    background:#1e3a8a;
+    color:white;
+    padding:15px;
+}
+
+td{
+    padding:15px;
+    text-align:center;
+    border-bottom:1px solid #eee;
+}
+
+tr:hover{
+    background:#f3f6ff;
+}
