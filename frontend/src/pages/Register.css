@@ -1,0 +1,24 @@
+/* Premium Register.css */
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
+html,body,#root{width:100%;height:100%;}
+.register-page{width:100%;min-height:100vh;background-image:linear-gradient(rgba(6,15,35,.72),rgba(6,15,35,.82)),url("../assets/background.jpg");background-size:cover;background-position:center;background-repeat:no-repeat;background-attachment:fixed;}
+.register-overlay{width:100%;min-height:100vh;display:flex;justify-content:space-between;align-items:center;padding:70px;gap:60px;}
+.register-left{flex:1;color:#fff;}
+.register-left h1{font-size:58px;line-height:1.15;margin-bottom:25px;}
+.register-left p{font-size:20px;color:#d1d5db;line-height:1.7;margin-bottom:35px;max-width:700px;}
+.info-box{width:80%;margin-bottom:18px;padding:18px 20px;border-left:5px solid #22c55e;background:rgba(255,255,255,.08);backdrop-filter:blur(12px);border-radius:14px;color:#fff;transition:.3s;}
+.info-box:hover{transform:translateX(8px);background:rgba(255,255,255,.14);}
+.register-card{width:460px;background:rgba(255,255,255,.10);backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.18);border-radius:24px;padding:40px;color:white;box-shadow:0 20px 50px rgba(0,0,0,.45);}
+.register-card h2{text-align:center;font-size:34px;margin-bottom:8px;}
+.subtitle{text-align:center;color:#d1d5db;margin-bottom:30px;}
+.input-box{display:flex;align-items:center;background:rgba(255,255,255,.12);border-radius:14px;padding:14px;margin-bottom:18px;}
+.icon{color:#fff;margin-right:12px;}
+.input-box input,.input-box select{width:100%;background:none;border:none;outline:none;color:#fff;font-size:16px;}
+.input-box input::placeholder{color:#d1d5db;}
+.input-box select option{color:#000;}
+.register-btn{width:100%;border:none;padding:16px;border-radius:14px;background:linear-gradient(90deg,#22c55e,#16a34a);color:white;font-size:18px;font-weight:600;cursor:pointer;transition:.3s;margin-top:8px;}
+.register-btn:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(34,197,94,.45);}
+.login-link{margin-top:25px;text-align:center;color:white;}
+.login-link a{color:#22c55e;text-decoration:none;margin-left:8px;font-weight:600;}
+.login-link a:hover{color:#86efac;}
+@media(max-width:1000px){.register-overlay{flex-direction:column;padding:30px}.register-left{text-align:center}.register-left h1{font-size:42px}.info-box{width:100%}.register-card{width:100%;max-width:480px}}

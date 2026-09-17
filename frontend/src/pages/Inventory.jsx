@@ -17,7 +17,6 @@ function Inventory() {
     const [batchId, setBatchId] = useState("");
     const [source, setSource] = useState("");
     const [color, setColor] = useState("");
-    const [editingId, setEditingId] = useState(null);
 
     // =====================================================
     // AI STATES
@@ -209,135 +208,6 @@ function Inventory() {
         }
 
     };
-    // =====================================================
-    // EDIT WASTE
-    // =====================================================
-
-        const editWaste = (item) => {
-
-            setEditingId(item.id);
-
-            setUserId(
-                item.user_id ?? ""
-            );
-
-            setBatchId(
-                item.batch_id ?? ""
-            );
-
-            setSource(
-                item.source ?? ""
-            );
-
-            setColor(
-                item.color ?? ""
-            );
-
-            setFabricType(
-                item.fabric_type ?? ""
-            );
-
-            setQuantity(
-                item.quantity ?? ""
-            );
-
-            setCondition(
-                item.condition ?? ""
-            );
-
-            setCollectionDate(
-                item.collection_date
-                    ? String(item.collection_date).slice(0, 10)
-                    : ""
-            );
-
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-        };
-        // =====================================================
-// UPDATE WASTE
-// =====================================================
-
-const updateWaste = async () => {
-
-    if (!editingId) {
-        return;
-    }
-
-    try {
-
-        await api.put(
-            `/waste/${editingId}`,
-            {
-                user_id: Number(userId),
-
-                batch_id: batchId,
-
-                fabric_type: fabricType,
-
-                source: source,
-
-                quantity: quantity,
-
-                color: color,
-
-                condition: condition,
-
-                collection_date: collectionDate
-            }
-        );
-
-        alert(
-            "Waste Record Updated Successfully!"
-        );
-
-        await fetchWaste();
-
-        // Clear edit mode
-        setEditingId(null);
-
-        // Clear form
-        setUserId("");
-        setFabricType("");
-        setQuantity("");
-        setCondition("");
-        setCollectionDate("");
-        setBatchId("");
-        setSource("");
-        setColor("");
-
-    } catch (err) {
-
-        console.error(
-            "Update waste error:",
-            err
-        );
-
-        alert(
-            err.response?.data?.detail ||
-            "Failed to update waste record."
-        );
-    }
-};
-// =====================================================
-// CANCEL EDIT
-// =====================================================
-
-const cancelEdit = () => {
-
-    setEditingId(null);
-
-    setUserId("");
-    setFabricType("");
-    setQuantity("");
-    setCondition("");
-    setCollectionDate("");
-    setBatchId("");
-    setSource("");
-    setColor("");
-};
 
     // =====================================================
     // FRONTEND
@@ -506,38 +376,14 @@ const cancelEdit = () => {
 
                     {/* SAVE */}
 
-                  {editingId ? (
-
-                    <div className="edit-buttons">
-
-                        <button
-                            type="button"
-                            className="update-button"
-                            onClick={updateWaste}
-                        >
-                            Update Waste Record
-                        </button>
-
-                        <button
-                            type="button"
-                            className="cancel-button"
-                            onClick={cancelEdit}
-                        >
-                            Cancel Edit
-                        </button>
-
-                    </div>
-
-                    ) : (
-
                     <button
                         type="button"
                         onClick={saveWaste}
                     >
-                        Save Waste Record
-                    </button>
 
-                    )}
+                        Save Waste Record
+
+                    </button>
 
                     {/* INVENTORY */}
 
@@ -591,10 +437,6 @@ const cancelEdit = () => {
 
                                     <th>
                                         Date
-                                    </th>
-
-                                    <th>
-                                        Action
                                     </th>
 
                                 </tr>
@@ -667,17 +509,6 @@ const cancelEdit = () => {
                                                         item.collection_date
                                                     }
                                                 </td>
-                                                <td>
-
-                                                <button
-                                                    type="button"
-                                                    className="edit-button"
-                                                    onClick={() => editWaste(item)}
-                                                >
-                                                    ✏️ Edit
-                                                </button>
-
-                                            </td>
 
                                             </tr>
 
@@ -688,7 +519,7 @@ const cancelEdit = () => {
 
                                     <tr>
 
-                                        <td colSpan="10">
+                                        <td colSpan="9">
 
                                             No records found.
 
