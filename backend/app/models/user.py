@@ -28,8 +28,8 @@ class User(Base):
     role = Column(
         String(50),
         nullable=False,
-        default="recycling_operator",
-        server_default="recycling_operator",
+        default="user",
+        server_default="user",
     )
     # New — links a Google account; null for email/password users
     google_id = Column(

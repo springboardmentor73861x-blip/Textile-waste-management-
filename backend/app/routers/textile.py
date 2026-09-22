@@ -1157,3 +1157,44 @@ def delete_textile_route(
         "message":
             "Textile deleted successfully",
     }
+    
+from pydantic import BaseModel
+
+class ProcessingStatusUpdate(BaseModel):
+    processing_status: str
+
+
+@router.put("/{textile_id}/status")
+def update_processing_status(
+    textile_id: int,
+    data: ProcessingStatusUpdate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user),
+):
+    if data.processing_status not in ["pending", "processed"]:
+        raise HTTPException(
+            status_code=400,
+            detail="processing_status must be 'pending' or 'processed'.",
+        )
+
+    textile = get_textile_by_id(
+        db=db,
+        textile_id=textile_id,
+        user_id=current_user.id,
+    )
+
+    if textile is None:
+        raise HTTPException(status_code=404, detail="Textile not found")
+
+    textile.processing_status = data.processing_status
+    db.commit()
+    db.refresh(textile)
+
+    return {
+        "success": True,
+        "message": f"Marked as {data.processing_status}",
+        "data": {
+            "id": textile.id,
+            "processing_status": textile.processing_status,
+        },
+    }    

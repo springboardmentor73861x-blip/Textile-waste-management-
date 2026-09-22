@@ -49,6 +49,7 @@ const ROLE_LABELS = {
   sustainability_manager: "Sustainability Manager",
   manufacturer: "Manufacturer",
   admin: "Administrator",
+  user: "User",
 };
 
 const ROLE_COLORS = {

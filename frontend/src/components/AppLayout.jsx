@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { Box } from "@mui/material";
+
 import Navbar from "./Navbar";
 import Sidebar from "./Sidebar";
 
@@ -8,20 +10,33 @@ import {
 } from "./layoutConfig";
 
 export default function AppLayout({ children }) {
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  const handleMobileOpen = () => {
+    setMobileOpen(true);
+  };
+
+  const handleMobileClose = () => {
+    setMobileOpen(false);
+  };
+
   return (
     <Box
       sx={{
         minHeight: "100vh",
-        width: "100vw",
+        width: "100%",
         overflowX: "hidden",
         bgcolor: "background.default",
       }}
     >
       {/* Navbar */}
-      <Navbar />
+      <Navbar onMenuClick={handleMobileOpen} />
 
       {/* Sidebar */}
-      <Sidebar />
+      <Sidebar
+        mobileOpen={mobileOpen}
+        onMobileClose={handleMobileClose}
+      />
 
       {/* Main Content */}
       <Box
@@ -29,10 +44,17 @@ export default function AppLayout({ children }) {
         sx={{
           position: "relative",
 
-          marginLeft: `${DRAWER_WIDTH}px`,
+          marginLeft: {
+            xs: 0,
+            md: `${DRAWER_WIDTH}px`,
+          },
+
           paddingTop: `${NAVBAR_HEIGHT}px`,
 
-          width: `calc(100vw - ${DRAWER_WIDTH}px)`,
+          width: {
+            xs: "100%",
+            md: `calc(100vw - ${DRAWER_WIDTH}px)`,
+          },
 
           minHeight: "100vh",
 

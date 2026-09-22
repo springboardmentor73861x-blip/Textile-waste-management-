@@ -127,6 +127,7 @@ def update_user_role_route(
     current_user: User = Depends(require_role("admin")),
 ):
     allowed_roles = [
+        "user",
         "recycling_operator",
         "sustainability_manager",
         "manufacturer",

@@ -67,6 +67,7 @@ const ROLE_LABELS = {
   sustainability_manager: "Sustainability Manager",
   manufacturer: "Manufacturer",
   admin: "Administrator",
+  user: "User",
 };
 
 const ROLE_COLORS = {
@@ -74,6 +75,7 @@ const ROLE_COLORS = {
   sustainability_manager: "success",
   manufacturer: "warning",
   admin: "secondary",
+  user: "default",
 };
 
 const ALL_ROLES = [
@@ -81,6 +83,7 @@ const ALL_ROLES = [
   { value: "sustainability_manager", label: "Sustainability Manager" },
   { value: "manufacturer", label: "Manufacturer" },
   { value: "admin", label: "Administrator" },
+  { value: "user", label: "User"},
 ];
 
 // ==========================================================

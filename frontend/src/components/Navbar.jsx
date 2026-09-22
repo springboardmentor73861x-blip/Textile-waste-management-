@@ -22,7 +22,7 @@ import NotificationsNoneIcon from "@mui/icons-material/NotificationsNone";
 import RecyclingIcon from "@mui/icons-material/Recycling";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DoneAllIcon from "@mui/icons-material/DoneAll";
-
+import MenuIcon from "@mui/icons-material/Menu";
 import { ColorModeContext } from "../theme/ColorModeContext";
 import { useAvatar } from "../context/AvatarContext";
 
@@ -39,6 +39,7 @@ import api from "../services/api";
 // ==========================================================
 
 const ROLE_LABELS = {
+  user:"User",
   recycling_operator: "Recycling Operator",
   sustainability_manager: "Sustainability Manager",
   manufacturer: "Manufacturer",
@@ -46,7 +47,7 @@ const ROLE_LABELS = {
 };
 
 
-export default function Navbar() {
+export default function Navbar({onMenuClick}) {
 
   const { toggleColorMode, mode } =
     useContext(ColorModeContext);
@@ -442,8 +443,10 @@ export default function Navbar() {
 
         <Box
           sx={{
-            width:
-              DRAWER_WIDTH,
+            width:{
+              xs: "auto",
+              md: DRAWER_WIDTH,
+            },
 
             height:
               "100%",
@@ -454,7 +457,11 @@ export default function Navbar() {
             alignItems:
               "center",
 
-            px: 3,
+            px:{
+              xs:1,
+              sm:2,
+              md:3,
+            },
 
             boxSizing:
               "border-box",
@@ -466,6 +473,18 @@ export default function Navbar() {
               "divider",
           }}
         >
+          <IconButton
+            onClick={onMenuClick}
+            sx={{
+              display: {
+                xs: "flex",
+                md: "none",
+            },
+            mr: 1,
+          }}
+>
+  <MenuIcon />
+</IconButton>
 
           <Avatar
             sx={{
@@ -962,8 +981,14 @@ export default function Navbar() {
           </Avatar>
 
 
-          <Box>
-
+          <Box
+            sx={{
+              display: {
+                xs: "none",
+                sm: "block",
+              },
+            }}
+           >
             <Typography
               fontWeight="medium"
             >
@@ -985,7 +1010,6 @@ export default function Navbar() {
                   : ""
               }
             </Typography>
-
           </Box>
 
         </Box>

@@ -70,6 +70,13 @@ class Textile(Base):
         String(20),
         nullable=True
     )
+    
+    processing_status = Column(
+        String(20),
+        nullable=False,
+        default="pending",
+        server_default="pending",
+    )
 
     top_predictions = Column(
         String(2000),

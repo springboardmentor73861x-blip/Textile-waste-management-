@@ -12,6 +12,7 @@ import {
 } from "@mui/material";
 
 import RecyclingIcon from "@mui/icons-material/Recycling";
+import PersonIcon from "@mui/icons-material/Person";
 import InsightsIcon from "@mui/icons-material/Insights";
 import PrecisionManufacturingIcon from "@mui/icons-material/PrecisionManufacturing";
 
@@ -25,6 +26,12 @@ import AuthLayout, { authColors } from "../components/AuthLayout";
 // ==========================================================
 
 const ROLE_OPTIONS = [
+  {
+    value: "user",
+    label: "User",
+    description: "Basic platform access.",
+    icon: PersonIcon,
+  },
   {
     value: "recycling_operator",
     label: "Recycling Operator",
@@ -71,13 +78,32 @@ const fieldSx = {
   },
 };
 
+// ==========================================================
+// ROLE -> HOME ROUTE
+// ==========================================================
+
+function getHomeRouteForRole(role) {
+  switch (role) {
+    case "admin":
+      return "/admin-dashboard";
+    case "recycling_operator":
+      return "/recycling-dashboard";
+    case "sustainability_manager":
+      return "/sustainability-dashboard";
+    case "manufacturer":
+      return "/manufacturer-dashboard";
+    default:
+      return "/dashboard";
+  }
+}
+
 export default function Register() {
   const navigate = useNavigate();
 
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState("recycling_operator");
+  const [role, setRole] = useState("user");
 
   const [message, setMessage] = useState("");
   const [error, setError] = useState("");
@@ -107,7 +133,7 @@ export default function Register() {
 
       const userRole = userResponse.data.role;
 
-      navigate(userRole === "admin" ? "/admin-dashboard" : "/dashboard");
+      navigate(getHomeRouteForRole(userRole));
     } catch (err) {
       console.error(err);
       setError("Google sign-up failed. Please try again.");

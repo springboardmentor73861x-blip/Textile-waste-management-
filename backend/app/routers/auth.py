@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
-
+from fastapi import Request
 from app.database import get_db
 from app.models.user import User
 from app.schemas.user import UserCreate, UserResponse
@@ -11,7 +11,7 @@ from app.core.security import verify_password
 from app.schemas.user import UserLogin, Token
 from google.oauth2 import id_token as google_id_token
 from google.auth.transport import requests as google_requests
-
+from app.core.rate_limiter import limiter
 from app.config import settings
 from app.schemas.user import GoogleAuthRequest
 
@@ -22,7 +22,8 @@ router = APIRouter(
 
 
 @router.post("/register", response_model=UserResponse)
-def register(user: UserCreate, db: Session = Depends(get_db)):
+@limiter.limit("5/minute")
+def register(request: Request,user: UserCreate, db: Session = Depends(get_db)):
     existing_user = db.query(User).filter(User.email == user.email).first()
 
     if existing_user:
@@ -45,7 +46,8 @@ def register(user: UserCreate, db: Session = Depends(get_db)):
     return new_user
 
 @router.post("/login", response_model=Token)
-def login(user: UserLogin, db: Session = Depends(get_db)):
+@limiter.limit("5/minute")
+def login(request: Request,user: UserLogin, db: Session = Depends(get_db)):
     db_user = db.query(User).filter(
         User.email == user.email
     ).first()
@@ -74,7 +76,8 @@ def login(user: UserLogin, db: Session = Depends(get_db)):
         "token_type": "bearer"
     }
 @router.post("/google", response_model=Token)
-def google_login(payload: GoogleAuthRequest, db: Session = Depends(get_db)):
+@limiter.limit("5/minute")
+def google_login(request: Request,payload: GoogleAuthRequest, db: Session = Depends(get_db)):
 
     try:
         idinfo = google_id_token.verify_oauth2_token(

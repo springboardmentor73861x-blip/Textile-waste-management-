@@ -2,6 +2,7 @@ from pydantic import BaseModel, EmailStr
 from typing import Literal
 
 Role = Literal[
+    "user",
     "recycling_operator",
     "sustainability_manager",
     "manufacturer",
@@ -12,7 +13,7 @@ class UserCreate(BaseModel):
     full_name: str
     email: EmailStr
     password: str
-    role: Role = "recycling_operator"
+    role: Role = "user"
 
 
 class UserLogin(BaseModel):
@@ -34,4 +35,4 @@ class Token(BaseModel):
     token_type: str   
 class GoogleAuthRequest(BaseModel):
     credential: str
-    role: Role = "recycling_operator"
+    role: Role = "user"

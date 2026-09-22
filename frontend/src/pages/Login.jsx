@@ -43,6 +43,25 @@ const fieldSx = {
   },
 };
 
+// ==========================================================
+// ROLE -> HOME ROUTE
+// ==========================================================
+
+function getHomeRouteForRole(role) {
+  switch (role) {
+    case "admin":
+      return "/admin-dashboard";
+    case "recycling_operator":
+      return "/recycling-dashboard";
+    case "sustainability_manager":
+      return "/sustainability-dashboard";
+    case "manufacturer":
+      return "/manufacturer-dashboard";
+    default:
+      return "/dashboard";
+  }
+}
+
 export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -61,7 +80,7 @@ export default function Login() {
 
     const role = userResponse.data.role;
 
-    navigate(role === "admin" ? "/admin-dashboard" : "/dashboard");
+    navigate(getHomeRouteForRole(role));
   };
 
   const handleGoogleCredential = async (response) => {

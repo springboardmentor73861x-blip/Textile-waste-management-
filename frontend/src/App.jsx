@@ -11,6 +11,9 @@ import History from "./pages/History";
 import HistoryDetails from "./pages/HistoryDetails";
 import Analytics from "./pages/Analytics";
 import AdminDashboard from "./pages/AdminDashboard";
+import RecyclingOperatorDashboard from "./pages/RecyclingOperatorDashboard";
+import SustainabilityManagerDashboard from "./pages/SustainabilityManagerDashboard";
+import ManufacturerDashboard from "./pages/ManufacturerDashboard";
 
 function App() {
   return (
@@ -93,6 +96,33 @@ function App() {
         element={
           <AppLayout>
             <Profile />
+          </AppLayout>
+        }
+      />
+
+      <Route
+        path="/recycling-dashboard"
+        element={
+          <AppLayout>
+          <RecyclingOperatorDashboard />
+          </AppLayout>
+        }
+      />
+
+      <Route
+        path="/sustainability-dashboard"
+        element={
+          <AppLayout>
+            <SustainabilityManagerDashboard />
+          </AppLayout>
+        }
+      />
+
+      <Route
+        path="/manufacturer-dashboard"
+        element={
+          <AppLayout>
+            <ManufacturerDashboard />
           </AppLayout>
         }
       />
